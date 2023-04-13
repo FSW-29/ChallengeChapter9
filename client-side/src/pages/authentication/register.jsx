@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import NavbarAuthComponent from "../../components/NavbarAuth"
 import { Link, useNavigate } from "react-router-dom";
 import { get, getDatabase, push, ref } from "firebase/database";
@@ -14,6 +14,20 @@ const RegisterPage = () => {
   const [socialMedia, setSocialMedia] = useState('');
 
   const navigate = useNavigate();
+
+  let i = 0;
+  useEffect(() => {
+    if (i === 0) {
+      const checkAccessToken = () => {
+        if (localStorage.getItem('token')) {
+          navigate('/')
+        }
+      }
+      checkAccessToken();
+      i++;
+    }
+    
+  }, [navigate, i]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
