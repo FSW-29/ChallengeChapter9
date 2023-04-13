@@ -109,9 +109,15 @@ const LoginPage = () => {
                   <label htmlFor="password" className="form-label">Password</label>
                   <input name="password" type="password" className="form-control" id="password" placeholder="Your Password" onChange={ handleFormLogin }  />
                 </div>
-                <div className="d-grid gap-2">
+                <div className="d-grid gap-2 mt-2">
                   <button type="submit" className="btn btn-primary">Login</button>
                   <Link to="/register" className="btn btn-success" target="__blank">Dont Have Account? Signup Here</Link>
+                </div>
+                <div className="d-grid gap-2 my-3">
+                  <hr />
+                  <Link className="text-decoration-none text-center text-black" onClick={ () => alert('Feature is Coming Soon!') }>
+                    Forgot the Password? Press Here
+                  </Link>
                 </div>
               </form>
             </div>
