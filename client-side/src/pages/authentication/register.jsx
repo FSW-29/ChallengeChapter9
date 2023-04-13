@@ -41,7 +41,7 @@ const RegisterPage = () => {
       // > Instanse databasenya ke setup firebase (/src/services/firebase.js)
       const database = getDatabase(firebase);
 
-      // > Query untuk mencari username dan password yang sudah ada
+      // > Query untuk mencari username dan email yang sudah ada
       const usersRef = ref(database, 'users');
       const snapshot = await get(usersRef);
 
