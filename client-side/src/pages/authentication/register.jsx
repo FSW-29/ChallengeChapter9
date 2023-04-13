@@ -130,9 +130,13 @@ const RegisterPage = () => {
                   <label htmlFor="social_media" className="form-label">Instagram URL</label>
                   <input name="social_media" type="social_media" className="form-control" id="social_media" placeholder="Your Instagram URL" onChange={ (e) => setSocialMedia(e.target.value) } required />
                 </div>
-                <div className="d-grid gap-2">
+                <div className="d-grid gap-2 mt-2">
                   <button type="submit" className="btn btn-primary">Register</button>
                   <Link to="/login" className="btn btn-success" target="__blank">Have Account? Login Here</Link>
+                </div>
+                <div className="d-grid gap-2 mt-3">
+                  <hr />
+                  <Link className="btn btn-secondary" onClick={ () => alert('Feature is Coming Soon!') }>Login Using Google!</Link>
                 </div>
               </form>
             </div>
