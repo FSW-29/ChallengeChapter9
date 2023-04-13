@@ -5,8 +5,8 @@ const NavbarAuthComponent = () => {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-          <a class="navbar-brand" href="/">
-            <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="img-banner-auth" width="30" height="24" class="d-inline-block align-text-top" />
+          <a className="navbar-brand" href="/">
+            <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="img-banner-auth" width="30" height="24" className="d-inline-block align-text-top" />
             Binar FSW 2
           </a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
