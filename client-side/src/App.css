@@ -36,3 +36,74 @@
     transform: rotate(360deg);
   }
 }
+
+.home{
+  background-image: url(../public/assets/main-bg.jpg);
+  padding-top: 0;
+  background-size: 100% 100%; 
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.landing-main-carousel{
+  /* background-image: url(../public/assets/main-bg.jpg); */
+  background-color: #282c34;
+  padding-top: 0;
+  background-size: 100% 100%; 
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.navbar-brand{
+  background-image: url(../public/assets/Logo-joystick.png); 
+  background-size: 100% 100%; 
+}
+
+.home-title{
+  font-size: 70px;
+}
+
+.home-tagline{
+  margin-top: 40px;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+.home button{
+  font-weight: bold;
+}
+
+.nav-item-create-account{
+  display: flex;
+  background: orangered;
+  opacity: 75%;
+}
+
+.nav-item-sign-in{
+  display: block;
+  background: green;
+  opacity: 75%;
+  margin-left: 10px;
+}
+
+.landing-definiton{
+  background-image: url(../public/assets/features.jpg) ;
+  background-size: 100% 100%; 
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.landing-list-game{
+  background-image: url(../public/assets/top-score-bg.png) ;
+  background-size: 100% 100%; 
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+} 
