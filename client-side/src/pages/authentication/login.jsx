@@ -1,32 +1,27 @@
-import React, { useState }  from "react"
+import React, { useState }  from "react";
 import { useNavigate } from "react-router";
-import NavbarAuthComponent from "../../components/NavbarAuth"
 
-const RegisterPage = () => {
+function LoginPage() {
 
-  const[emailUser, setEmailUser] = useState("")
-  const[passwordUser, setPasswordUser] = useState("")
+    const[emailUser, setEmailUser] = useState("")
+    const[passwordUser, setPasswordUser] = useState("")
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
       e.preventDefault()
+
+      navigate('/home')
     }
 
-    const navigateToLogin = () => {
-      navigate('/login')
-    }
-
-  return (
-    <>
-      <NavbarAuthComponent />
-      <div className="h-100 h-custom">
+    return(
+        <div className="h-100 h-custom">
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
                 <div className="card-body p-4 p-md-5">
-                  <h3 className="text-center mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Form</h3>
+                  <h3 className="text-center mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Login Form</h3>
       
                   {/* setting form */}
                   <form onSubmit={handleSubmit} className="px-md-2">
@@ -42,13 +37,13 @@ const RegisterPage = () => {
                       <input type="password" className="form-control" onChange={e => setPasswordUser(e.target.value)}/>
                     </div>
 
-                    {/* button register & navigate to login page */}
+                    {/* button login */}
                     <div class="d-flex justify-content-center">
-                      <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                      <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Login</button>
                     </div>
                   
-                    <p class="text-center text-muted mt-5 mb-0">Already have an account? 
-                    <a onClick={navigateToLogin} class="fw-bold text-body"> <u>Login here</u></a></p>
+                    {/* <p class="text-center text-muted mt-5 mb-0">Already have an account? 
+                    <a onClick={navigateToLogin} class="fw-bold text-body"><u>Login here</u></a></p> */}
                 
                   </form>
                 </div>
@@ -57,8 +52,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
-    </>
-  );
-};
+    )
+}
 
-export default RegisterPage;
+export default LoginPage;
