@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavbarAuthComponent from "../../components/NavbarAuth";
-import { get, getDatabase, ref } from "firebase/database";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import firebase from "../../services/firebase";
+import { get, getDatabase, ref, push } from "firebase/database";
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import firebase, { database } from "../../services/firebase";
 
 const LoginPage = () => {
   const [formLogin, setFormLogin] = useState({
@@ -93,6 +93,47 @@ const LoginPage = () => {
     }
   }
 
+  const loginWithGoogle =  async () => {
+    try {
+      // > Proses Auth
+      const auth = getAuth(firebase);
+      const provider = new GoogleAuthProvider();
+      const loginResult = await signInWithPopup(auth, provider);
+      console.info(loginResult, '==> 1');
+      console.info(loginResult.user, '==> 2');
+
+      // > Get user id, username, email
+      // => id
+      const idUser = loginResult.user.uid;
+      // => email
+      const emailUser = loginResult.user.email;
+      // => username
+      const name = loginResult.user.displayName;
+      const splitName = name.split(' ');
+      const usernameUser = splitName[0].toLowerCase() + splitName[1].toLocaleLowerCase() + 'nz';
+
+      // > Proses Simpan Kedalam Realtime Database
+      const database = getDatabase(firebase);
+      const dataRef = ref(database, 'users');
+      await push(dataRef, {
+        id: idUser,
+        email: emailUser,
+        username: usernameUser,
+        password: 'password',
+        total_score: 0,
+        biodata: 'Belum Diatur',
+        city: 'Belum Diatur',
+        social_media: 'Belum Diatur'
+      });
+
+      localStorage.setItem('token', loginResult.user.accessToken);
+
+      navigate('/');
+    } catch (error) {
+      console.info(error.message);
+    }
+  };
+
   return(
     <>
       <NavbarAuthComponent />
@@ -118,7 +159,7 @@ const LoginPage = () => {
                   <p style={{ fontSize: "14px", fontWeight: "lighter" }}>Or</p>
                 </div>
                 <div className="d-grid gap-2 mt-3">
-                  <Link className="btn btn-secondary" onClick={ () => alert('Feature is Coming Soon!') }>Login Using Google!</Link>
+                  <Link className="btn btn-secondary" onClick={ loginWithGoogle }>Login Using Google!</Link>
                 </div>
                 <div className="d-grid gap-2 my-3">
                   <hr />
