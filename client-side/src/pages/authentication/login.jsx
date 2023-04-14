@@ -89,6 +89,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.info(error.message);
+      alert('Check Again Email or Password!');
     }
   }
 
@@ -112,6 +113,12 @@ const LoginPage = () => {
                 <div className="d-grid gap-2 mt-2">
                   <button type="submit" className="btn btn-primary">Login</button>
                   <Link to="/register" className="btn btn-success" target="__blank">Dont Have Account? Signup Here</Link>
+                </div>
+                <div className="or my-3 text-center">
+                  <p style={{ fontSize: "14px", fontWeight: "lighter" }}>Or</p>
+                </div>
+                <div className="d-grid gap-2 mt-3">
+                  <Link className="btn btn-secondary" onClick={ () => alert('Feature is Coming Soon!') }>Login Using Google!</Link>
                 </div>
                 <div className="d-grid gap-2 my-3">
                   <hr />

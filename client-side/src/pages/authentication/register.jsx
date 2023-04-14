@@ -134,10 +134,6 @@ const RegisterPage = () => {
                   <button type="submit" className="btn btn-primary">Register</button>
                   <Link to="/login" className="btn btn-success" target="__blank">Have Account? Login Here</Link>
                 </div>
-                <div className="d-grid gap-2 mt-3">
-                  <hr />
-                  <Link className="btn btn-secondary" onClick={ () => alert('Feature is Coming Soon!') }>Login Using Google!</Link>
-                </div>
               </form>
             </div>
           </div>
