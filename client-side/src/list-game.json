@@ -1,0 +1,134 @@
+{
+  "game": [
+    {
+      "id": 1,
+      "name": "Smash Karts",
+      "desc": "Smash Karts is a 3D multiplayer kart battle game. Drive your go-kart, pick up weapons, and blow up other karts to win! Keep playing to level up and unlock new characters and prizes.",
+      "type": "racing",
+      "developer": "crazygames@tall.team",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/smash-karts/20201119155032/smash-karts-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/smash-karts"
+    },
+    {
+      "id": 2,
+      "name": "Crazy Drift",
+      "desc": "Crazy Drift is an epic driving game where you drift around tracks to build a score. You can modify and also buy new cars. There are 3 types of places you can play: tracks, playgrounds, or stunt track. Play in multiplayer mode so you can play with other players online. ",
+      "type": "racing",
+      "developer": "crazygames@tall.team",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/games/crazy-drift/cover-1655409764442.png?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/crazy-drift"
+    },
+    {
+      "id": 3,
+      "name": "Highway Racer 2",
+      "desc": "Highway Racer 2 is a high-speed racing game that puts your driving skills to the test. Dodge the traffic and obstacles while collecting power-ups to boost your speed. With multiple game modes, Highway Racer 2 offers endless hours of adrenaline-fueled fun. Customize your car to your heart's content to reflect your style. Race against other players online in multiplayer mode! ",
+      "type": "racing",
+      "developer": "crazygames@tall.team",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/games/highway-racer-2/cover-1678723517371.png?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/highway-racer-2"
+    },
+    {
+      "id": 4,
+      "name": "Highway Racer",
+      "desc": "Highway Racer is a 3D racing game where you speed down a highway dodging cars. Build up your speed and avoid hitting traffic while taking risks like near misses and driving on the wrong side for bonus points.",
+      "type": "racing",
+      "developer": "crazygames@tall.team",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/ramp-car-jumping/20230308122223/ramp-car-jumping-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/highway-racer"
+    },
+    {
+      "id": 5,
+      "name": "Unfold Escape Room Puzzle",
+      "desc": "Unfold Escape Room Puzzle is a puzzle game that is easy to learn yet incredibly interesting! Earth has been visited by mysterious creatures! Who they are and where they came from? No one knows. You have a chance to solve their mystery! Explore different parts of our planet, from abandoned temples in the Amazon forest to super-modern spaceports! Each level is a unique 3D puzzle game. Rotate, zoom in, and interact with objects in the level to understand how everything works and solve the puzzle. Those who can find a hidden object in each room will gain access to a marvelous bonus level.",
+      "type": "puzzle",
+      "developer": "WetBox",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/unfold-escape-room-puzzle/20230210191153/unfold-escape-room-puzzle-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=cro",
+      "src": "https://www.crazygames.com/embed/unfold-escape-room-puzzle"
+    },
+    {
+      "id": 6,
+      "name": "Inca Cubes 2048",
+      "desc": "Inca Cubes 2048 is a unique 2048 puzzle game where you must launch numbered cubes to merge them with identical cubes. Each merge increases the value of the block. With beautiful Incan-themed graphics and addictive gameplay, this game will keep you entertained for hours.",
+      "type": "puzzle",
+      "developer": "crazygames@tall.team",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/games/inca-cubes-2048/cover-1680024941220.png?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/inca-cubes-2048"
+    },
+    {
+      "id": 7,
+      "name": "Zombie Match",
+      "desc": "Zombie Match is an arcade puzzle game with a tower defense element in it. Use the grid to match tiles and get bonuses that will help your army survive against waves of zombies. Collect gems to upgrade tiles in the skill tree and open loot boxes that offer valuable bonuses to progress. Explore four different worlds and defeat overpowered bosses to access the next level. Participate in in-game events, including the Zombie Madness mode, where you can play as a zombie and attack players.",
+      "type": "puzzle",
+      "developer": "Endless Pixels",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/zombie-match/20230404212303/zombie-match-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/zombie-match"
+    },
+    {
+      "id": 8,
+      "name": "Roboduo",
+      "desc": "Roboduo is a 2D puzzle platformer game where you control these two different robots named Robo and Geralt to reach the exit gate. Each has unique abilities, Robo can jump higher and use electricity, and Geralt can push boxes. You must make them help each other to reach the exit. Good luck!",
+      "type": "puzzle",
+      "developer": "kisk",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/roboduo/20220808111036/roboduo-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/roboduo"
+    },
+    {
+      "id": 9,
+      "name": "1v1 Battle",
+      "desc": "1v1 Battle is a multiplayer build-and-fight 3rd person shooter featuring 1-on-1 matches. Train your skills in 1v1 PvP games and become a master at building while also battling other players in real-time!",
+      "type": "action",
+      "developer": "ido@octo-play.com",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/1v1battle-build-fight-simulator/20210529054105/1v1battle-build-fight-simulator-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/1v1battle-build-fight-simulator"
+    },
+    {
+      "id": 10,
+      "name": "Puppet Fighter 2 Player",
+      "desc": "Puppet Fighter 2 Player is a game you can play with your friend locally. Challenge your friends in this fun game with minimalistic graphics. ",
+      "type": "action",
+      "developer": "crazygames@tall.team",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/puppet-fighter-2-player/20221123094627/puppet-fighter-2-player-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/puppet-fighter-2-player"
+    },
+    {
+      "id": 11,
+      "name": "Fight Arena Online",
+      "desc": "Fight Arena Online is a 3D multiplayer brawling game that allows you to combine punches and kicks to beat other opponents.",
+      "type": "action",
+      "developer": "The Money Suitcase",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/fight-arena-online/20210126123122/fight-arena-online-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/fight-arena-online"
+    },
+    {
+      "id": 12,
+      "name": "Amazing Strange Rope Police",
+      "desc": "Amazing Strange Rope Police – Vice Spider Vegas is a fantastic city simulator game in which you get to control a superhero that is like Spiderman. You can choose to become a superhero and save the day, or you can be the bad guy and become a supervillain instead! The 3D graphics in this game are immense, and the huge city you can explore is vast and full of surprises. You can use a myriad of superhero moves such as a web shot, building climb and laser beam too! To top it all off, you can choose from a range of different superhero costumes too. ",
+      "type": "action",
+      "developer": "HGames-ArtWorks",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://images.crazygames.com/games/amazing-strange-rope-police-vice-spider/cover-1655216920003.png?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&fit=crop",
+      "src": "https://www.crazygames.com/embed/amazing-strange-rope-police-vice-spider"
+    },
+    {
+      "id": 13,
+      "name": "Paper Rock Scissors",
+      "desc": "Paper Rock Scissors is simple game, that choose one of paper, rock, or scissors. Paper Rock Scissors is simple game, that choose one of paper, rock, or scissors.Paper Rock Scissors is simple game, that choose one of paper, rock, or scissors.Paper Rock Scissors is simple game, that choose one of paper, rock, or scissors.Paper Rock Scissors is simple game, that choose one of paper, rock, or scissors. ",
+      "type": "new",
+      "developer": "binar student",
+      "platform": "Browser (desktop, mobile, tablet)",
+      "image": "https://static.vecteezy.com/system/resources/thumbnails/000/690/865/small/rock-paper-scissors-line-icons.jpg",
+      "src": ""
+    }
+  ]
+}
