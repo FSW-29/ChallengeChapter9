@@ -9,8 +9,8 @@ import NavbarAuthComponent from "../../components/NavbarAuth"
 export default function ProfilePage(){
 
     const [profileUser, setProfileUser]=useState();
-    let [userNum, setUserNum]=useState();
     let navigate=useNavigate()
+    let userNum=null;
 
     let [userId, setUserId]=useState();
     let [userName, setUserName]= useState();
@@ -54,16 +54,37 @@ export default function ProfilePage(){
                 
                 for(let i=0; i<cekData.length; i++){
                     if(cekData[i].id === tokenCurrentUser){
-                        setUserNum=i;
+                        userNum=i;
                         console.log(i,"===> data user berada di array posisi ini")
                     }
                 }
-
-                setProfileUser(cekData[Number(setUserNum)])
-                console.log("halo 2")
-                console.log(cekData[Number(setUserNum)], "===> isi dari cekData")
-                console.log(profileUser, "====> isi profileUser")
-                console.log(profileUser.biodata, "===> ini ambil dari biodata profileuser")
+                
+                // console.log(cekData, '===> isi cekData');
+                setProfileUser(cekData[Number(userNum)])
+                // console.log("halo 2")
+                // console.log(databaseFirebase.val(),'===> INI ISI DATABASE FIREBASE')
+                let collectionObject= databaseFirebase.val();
+                // console.log(typeof(collectionObject));
+                let temp=0
+                let tempProperty;
+                console.log(userNum,"=>")
+                for(let property in collectionObject){
+                    // console.log(index, 'ini index')
+                    // if(temp===Number(userNum)){
+                    //     tempProperty=property;
+                    // }
+                    if(temp===userNum){
+                        console.log(`${property}: ${collectionObject[property]}`)
+                        console.log("kena if")
+                        tempProperty=property
+                    }
+                    temp++
+                    
+                }
+                console.log(tempProperty,"==> INI ISI TEMP PROPERTY")
+                // console.log(cekData[Number(UserNum)], "===> isi dari cekData")
+                // console.log(profileUser, "====> isi profileUser")
+                // console.log(profileUser.biodata, "===> ini ambil dari biodata profileuser")
             
         }catch(err){
             console.log(err)
