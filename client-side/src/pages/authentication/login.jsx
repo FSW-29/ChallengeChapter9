@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import NavbarAuthComponent from "../../components/NavbarAuth";
 import { get, getDatabase, ref, push } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import firebase, { database } from "../../services/firebase";
+import firebase from "../../services/firebase";
 
 const LoginPage = () => {
   const [formLogin, setFormLogin] = useState({
@@ -62,6 +62,7 @@ const LoginPage = () => {
       const isEmailExist = users.find((user) => user.email === email);
 
       if (isEmailExist) {
+        console.info(isEmailExist, '==> email ditemukan');
         // > Cek config firebase.js
         const auth = getAuth(firebase);
         // > Buat akun user (authentication)
