@@ -1,3 +1,4 @@
+
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -6,6 +7,8 @@ import NotFoundPage from "./pages/notfound/notfound";
 import GameListPage from "./pages/game/GameListPage";
 import GameDetailPage from "./pages/game/GameDetailPage";
 import listGame from "./list-game.json";
+import LoginPage from './pages/authentication/login';
+
 
 function App() {
   let [game, setGame] = useState([]);
@@ -25,6 +28,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/register" element={<RegisterPage />} />
+          <Route path='/' element={ <HomePage /> } />
+          <Route path='/register' element={ <RegisterPage /> } />
+          <Route path='/login' element={ <LoginPage /> } />
           <Route
             exact
             path="/game-list"
@@ -35,7 +41,7 @@ function App() {
             path={"/game-detail/:name"}
             element={<GameDetailPage propsDetailGame={game} />}
           />
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path='*' element={ <NotFoundPage /> } />
         </Routes>
       </BrowserRouter>
     </>
