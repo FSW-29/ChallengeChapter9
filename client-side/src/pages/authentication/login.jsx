@@ -127,7 +127,7 @@ const LoginPage = () => {
         social_media: 'Belum Diatur'
       });
 
-      localStorage.setItem('token', loginResult.user.accessToken);
+      localStorage.setItem('token', loginResult.user.uid);
 
       navigate('/');
     } catch (error) {

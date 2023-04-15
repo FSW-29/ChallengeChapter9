@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import {ref,set,get,child,getDatabase, update} from "firebase/database"
+import {ref,get,child,getDatabase, update} from "firebase/database"
 import firebase from "../../services/firebase";
 import {useNavigate} from "react-router"
 import NavbarAuthComponent from "../../components/NavbarAuth"
 
 export default function ProfilePage(){
 
+    //penampung fetchData
     const [profileUser, setProfileUser]=useState();
+
     let navigate=useNavigate()
     let userNum=null;
+    
     let [userScore, setUserScore]=useState();
 
     let [userCity, setUserCity]=useState();
