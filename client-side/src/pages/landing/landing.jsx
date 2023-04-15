@@ -12,7 +12,7 @@ function LandingPage() {
             <NavbarLandingComponent/>
             <LandingCarouselComponent/>
             <LandingDefinitionComponent/>
-            <LandingListGameComponent />
+            {/* <LandingListGameComponent /> */}
         </div>
     )
 }
