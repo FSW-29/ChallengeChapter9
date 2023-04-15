@@ -111,7 +111,7 @@ const LoginPage = () => {
       // => username
       const name = loginResult.user.displayName;
       const splitName = name.split(' ');
-      const usernameUser = splitName[0].toLowerCase() + splitName[1].toLocaleLowerCase() + 'nz';
+      const usernameUser = splitName[0].toLowerCase() + splitName[1].toLocaleLowerCase();
 
       // > Proses Simpan Kedalam Realtime Database
       const database = getDatabase(firebase);
@@ -120,7 +120,6 @@ const LoginPage = () => {
         id: idUser,
         email: emailUser,
         username: usernameUser,
-        password: 'password',
         total_score: 0,
         biodata: 'Belum Diatur',
         city: 'Belum Diatur',

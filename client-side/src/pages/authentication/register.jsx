@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import React, { useState }  from "react"
-import { useNavigate } from "react-router";
-=======
 import React, { useEffect, useState } from "react"
->>>>>>> 75e65ab8e883f8e6e1e3d69dff0ea24732ae3c4c
 import NavbarAuthComponent from "../../components/NavbarAuth"
 import { Link, useNavigate } from "react-router-dom";
 import { get, getDatabase, push, ref } from "firebase/database";
@@ -11,21 +6,6 @@ import firebase from "../../services/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterPage = () => {
-<<<<<<< HEAD
-
-  const[emailUser, setEmailUser] = useState("")
-  const[passwordUser, setPasswordUser] = useState("")
-
-  const navigate = useNavigate()
-
-    const handleSubmit = async (e) => {
-      e.preventDefault()
-    }
-
-    const navigateToLogin = () => {
-      navigate('/login')
-    }
-=======
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -116,46 +96,10 @@ const RegisterPage = () => {
       console.info(error.message);
     }
   };
->>>>>>> 75e65ab8e883f8e6e1e3d69dff0ea24732ae3c4c
 
   return (
     <>
       <NavbarAuthComponent />
-<<<<<<< HEAD
-      <div className="h-100 h-custom">
-        <div className="container py-5 h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-8 col-xl-6">
-              <div className="card rounded-3">
-                <div className="card-body p-4 p-md-5">
-                  <h3 className="text-center mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Form</h3>
-      
-                  {/* setting form */}
-                  <form onSubmit={handleSubmit} className="px-md-2">
-                    
-                    {/* get data email */}
-                    <div className="form-outline mb-4">
-                      <label className="form-label" for="form3Example1q">Email</label>
-                      <input type="email" className="form-control" onChange={e => setEmailUser(e.target.value)} />
-                    </div>
-                    {/* get data password */}
-                    <div className="mb-3">
-                      <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
-                      <input type="password" className="form-control" onChange={e => setPasswordUser(e.target.value)}/>
-                    </div>
-
-                    {/* button register & navigate to login page */}
-                    <div class="d-flex justify-content-center">
-                      <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
-                    </div>
-                  
-                    <p class="text-center text-muted mt-5 mb-0">Already have an account? 
-                    <a onClick={navigateToLogin} class="fw-bold text-body"> <u>Login here</u></a></p>
-                
-                  </form>
-                </div>
-              </div>
-=======
       <div className="container mt-3">
         <div className="row align-items-center justify-content-center" style={{ height: '100vh' }}>
           <div className="col-sm-12 col-md-8 col-lg-8">
@@ -191,7 +135,6 @@ const RegisterPage = () => {
                   <Link to="/login" className="btn btn-success" target="__blank">Have Account? Login Here</Link>
                 </div>
               </form>
->>>>>>> 75e65ab8e883f8e6e1e3d69dff0ea24732ae3c4c
             </div>
           </div>
         </div>
