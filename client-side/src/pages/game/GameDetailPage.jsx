@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NavbarHomeComponent from "../../components/NavbarHome";
 
 function GameDetailPage(props) {
   const navigate = useNavigate();
   let frame;
+
+  useEffect(() => {
+    cekToken();
+  }, []);
+
+  const cekToken = () => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  };
 
   //kembali ke halaman sebelumnya
   const handleBack = (e) => {
@@ -33,6 +44,7 @@ function GameDetailPage(props) {
 
   return (
     <>
+      <NavbarHomeComponent />
       <div className="text-center">{frame}</div>
       <div className="pt-3 ps-5 w-50 fs-4">
         <h1>{props.propsDetailGame.name}</h1>
