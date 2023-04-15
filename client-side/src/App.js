@@ -10,6 +10,7 @@ import LoginPage from './pages/authentication/login';
 import ProfilePage from './pages/authentication/profilePage';
 import LandingPage from './pages/landing/landing';
 import HomePage from './pages/home/home';
+import ResetPasswordPage from "./pages/authentication/resetPassword";
 
 
 function App() {
@@ -29,14 +30,13 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-
           <Route path='/home' element={ <HomePage /> } />
           <Route path="/register" element={<RegisterPage />} />
           <Route path='/' element={ <LandingPage />} />
           <Route path='/register' element={ <RegisterPage /> } />
           <Route exact path="/profile" element={<ProfilePage/>}/>
-
           <Route path='/login' element={ <LoginPage /> } />
+          <Route path="/reset-password" element={ <ResetPasswordPage /> } />
           <Route
             exact
             path="/game-list"
