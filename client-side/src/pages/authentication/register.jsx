@@ -20,13 +20,12 @@ const RegisterPage = () => {
     if (i === 0) {
       const checkAccessToken = () => {
         if (localStorage.getItem('token')) {
-          navigate('/')
+          navigate('/home')
         }
       }
       checkAccessToken();
       i++;
     }
-    
   }, [navigate, i]);
 
   const handleRegister = async (e) => {
@@ -59,12 +58,12 @@ const RegisterPage = () => {
       const isEmailExist = users.find((user) => user.email === email);
 
       if (isUsernameExist) {
-        alert('Username has been taken');
+        alert('Username has been used!');
         return;
       }
 
       if (isEmailExist) {
-        alert('Email has been used');
+        alert('Email has been used!');
         return;
       }
 
