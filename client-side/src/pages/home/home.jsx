@@ -1,10 +1,9 @@
 import React, {useEffect} from "react";
 import NavbarHomeComponent from "../../components/NavbarHome";
-import { useNavigate } from "react-router";
-import { getAuth, signOut } from "firebase/auth";
-import firebase from "../../services/firebase";
 import LandingCarouselComponent from "../../components/LandingCarousel";
-
+ import { useNavigate } from "react-router";
+// import { getAuth, signOut } from "firebase/auth";
+// import firebase from "../../services/firebase";
 
 const HomePage = () => {
 
@@ -26,14 +25,13 @@ const HomePage = () => {
         }
     }
 
+    // const handleLogout = async () => {
+    //   const auth = getAuth(firebase);
+    //   await signOut(auth);
 
-    const handleLogout = async () => {
-      const auth = getAuth(firebase);
-      await signOut(auth);
-
-      localStorage.removeItem('token');
-      navigate('/login');
-    };
+    //   localStorage.removeItem('token');
+    //   navigate('/login');
+    // };
 
     return(
         <>

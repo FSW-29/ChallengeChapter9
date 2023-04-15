@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import NavbarAuthComponent from "../../components/NavbarAuth";
+import React, { useEffect, useState } from "react"
+import NavbarAuthComponent from "../../components/NavbarAuth"
 import { Link, useNavigate } from "react-router-dom";
 import { get, getDatabase, push, ref } from "firebase/database";
 import firebase from "../../services/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const RegisterPage = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [biodata, setBiodata] = useState("");
-  const [city, setCity] = useState("");
-  const [socialMedia, setSocialMedia] = useState("");
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [biodata, setBiodata] = useState('');
+  const [city, setCity] = useState('');
+  const [socialMedia, setSocialMedia] = useState('');
 
   const navigate = useNavigate();
 
@@ -19,8 +19,8 @@ const RegisterPage = () => {
   useEffect(() => {
     if (i === 0) {
       const checkAccessToken = () => {
-        if (localStorage.getItem("token")) {
-          navigate("/");
+        if (localStorage.getItem('token')) {
+          navigate('/home')
         }
       };
       checkAccessToken();
@@ -58,12 +58,12 @@ const RegisterPage = () => {
       const isEmailExist = users.find((user) => user.email === email);
 
       if (isUsernameExist) {
-        alert("Username has been taken");
+        alert('Username has been used!');
         return;
       }
 
       if (isEmailExist) {
-        alert("Email has been used");
+        alert('Email has been used!');
         return;
       }
 
