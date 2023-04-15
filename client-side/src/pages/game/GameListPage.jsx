@@ -1,28 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CarouselGameListComponent from "../../components/CarouselGameListComponent";
 import GameListByCategoryComponent from "../../components/GameListByCategoryComponent";
+import NavbarHomeComponent from "../../components/NavbarHome";
+import NavbarLandingComponent from "../../components/NavbarLanding";
 
 function GameListPage(props) {
   const navigate = useNavigate();
   const array = props.propsArray;
+  let racing = [];
+  let puzzle = [];
+  let action = [];
+  let gameNew = [];
 
-  // filter data pada sesuai kategori
+  //filter data pada sesuai kategori
+
   const handleGameRacing = () => {
-    return array.filter((item) => item.type.toLowerCase() === "racing");
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].type.toLowerCase() === "racing") {
+        racing.push(array[i]);
+      }
+    }
+
+    //   return array.filter((item) => item.type.toLowerCase() === "racing");
   };
 
   const handleGamePuzzle = () => {
-    return array.filter((item) => item.type.toLowerCase() === "puzzle");
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].type.toLowerCase() === "puzzle") {
+        puzzle.push(array[i]);
+      }
+    }
+    //return array.filter((item) => item.type.toLowerCase() === "puzzle");
   };
 
   const handleGameAction = () => {
-    return array.filter((item) => item.type.toLowerCase() === "action");
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].type.toLowerCase() === "action") {
+        action.push(array[i]);
+      }
+    }
+    //return array.filter((item) => item.type.toLowerCase() === "action");
   };
 
   const handleGameNew = () => {
-    return array.filter((item) => item.type.toLowerCase() === "new");
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].type.toLowerCase() === "new") {
+        return gameNew.push(array[i]);
+      }
+    }
+    //return array.filter((item) => item.type.toLowerCase() === "new");
   };
+
+  handleGameRacing();
+  handleGamePuzzle();
+  handleGameAction();
+  handleGameNew();
+
   //
 
   //function untuk pindah ke detail page
@@ -40,29 +75,35 @@ function GameListPage(props) {
 
   return (
     <>
+      {!localStorage.getItem("token") ? (
+        <NavbarLandingComponent />
+      ) : (
+        <NavbarHomeComponent />
+      )}
+
       <CarouselGameListComponent />
       <div className="container">
         <GameListByCategoryComponent
           propsCategory={"New"}
-          propsHandleGame={handleGameNew}
+          propsHandleGame={gameNew}
           propsHandleDetail={handleDetail}
         />
 
         <GameListByCategoryComponent
           propsCategory={"Racing"}
-          propsHandleGame={handleGameRacing}
+          propsHandleGame={racing}
           propsHandleDetail={handleDetail}
         />
 
         <GameListByCategoryComponent
           propsCategory={"Puzzle"}
-          propsHandleGame={handleGamePuzzle}
+          propsHandleGame={puzzle}
           propsHandleDetail={handleDetail}
         />
 
         <GameListByCategoryComponent
           propsCategory={"Action"}
-          propsHandleGame={handleGameAction}
+          propsHandleGame={action}
           propsHandleDetail={handleDetail}
         />
       </div>
