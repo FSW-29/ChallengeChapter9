@@ -13,6 +13,10 @@ const NavbarLandingComponent = () => {
         navigate('/login')
     }
 
+    const navigateToGameList = () => {
+        navigate('/game-list')
+    }
+
     return(
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{opacity: "70%"}}>
@@ -23,10 +27,9 @@ const NavbarLandingComponent = () => {
                     </button>    
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item"  >
-                                <a className="nav-link">The Portal Game You Need!</a>
+                            <li className="nav-item">
+                                <a onClick={navigateToGameList} className="nav-link">Game List</a>
                             </li>
-                            
                         </ul>
                         <form className="d-flex">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">

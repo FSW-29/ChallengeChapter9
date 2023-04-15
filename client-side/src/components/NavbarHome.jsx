@@ -1,13 +1,31 @@
 import React from "react";
 import { useNavigate } from "react-router";
+import { getAuth, signOut } from "firebase/auth";
+import firebase from "../services/firebase";
 
 const NavbarHomeComponent = () => {
     
     const navigate = useNavigate();
 
-    const navigateToLanding = () => {
-        navigate('/')
+    // const navigateToLanding = () => {
+    //     navigate('/')
+    // }
+
+    const navigateToProfile = () => {
+        navigate('/profile')
     }
+
+    const navigateToGameList = () => {
+        navigate('/game-list')
+    }
+
+    const handleLogout = async () => {
+        const auth = getAuth(firebase);
+        await signOut(auth);
+  
+        localStorage.removeItem('token');
+        navigate('/login');
+      };
 
     return(
         <>
@@ -20,14 +38,14 @@ const NavbarHomeComponent = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <a className="nav-link" >Profile</a>
+                                <a className="nav-link" onClick={navigateToProfile}>Profile</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" >Game List</a>
+                                <a className="nav-link" onClick={navigateToGameList}>Game List</a>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link" >Game Detail</a>
-                            </li>
+                            </li> */}
                         </ul>
                         <form className="d-flex">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -35,7 +53,7 @@ const NavbarHomeComponent = () => {
                                     <a className="nav-link active" aria-current="page">Hello, @Username</a>
                                 </li>
                                 <li className="nav-item-create-account">
-                                    <a onClick={navigateToLanding} className="nav-link active" aria-current="page">Logout</a>
+                                    <a onClick={handleLogout} className="nav-link active" aria-current="page">Logout</a>
                                 </li>
                             </ul>
                         </form>
