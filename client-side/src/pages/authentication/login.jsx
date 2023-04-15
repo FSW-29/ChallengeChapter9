@@ -79,7 +79,6 @@ const LoginPage = () => {
         // console.info(user, "==> Success Login User");
         // console.info(user.uid, '==> uid user');
 
-        // Simpan token (token dalam bentuk uid)
         const token = user.uid;
         // console.info(token, 'ini token');
         localStorage.setItem('token', token);
@@ -128,7 +127,6 @@ const LoginPage = () => {
       });
 
       localStorage.setItem('token', loginResult.user.uid);
-      // console.info(loginResult.user.uid, '==> ini uid');
 
       navigate('/home');
     } catch (error) {

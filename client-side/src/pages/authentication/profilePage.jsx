@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
-import {ref,set,get,child,getDatabase, update} from "firebase/database"
+import {ref,get,child,getDatabase, update} from "firebase/database"
 import firebase from "../../services/firebase";
 import {useNavigate} from "react-router"
 import NavbarAuthComponent from "../../components/NavbarAuth"
 
 export default function ProfilePage(){
 
+    //penampung fetchData
     const [profileUser, setProfileUser]=useState();
-    let navigate=useNavigate()
     let userNum=null;
+    const database= getDatabase(firebase);
 
+    let navigate=useNavigate()
+    
+
+    let [userScore, setUserScore]=useState();
 
     let [userCity, setUserCity]=useState();
     let [userBiodata, setUserBiodata]=useState();
@@ -17,7 +22,7 @@ export default function ProfilePage(){
 
 
 
-    const database= getDatabase(firebase);
+    
 
     useEffect(() =>{
         cekToken();
@@ -52,6 +57,7 @@ export default function ProfilePage(){
                     navigate('/login')
                 }
                 setProfileUser(cekData[Number(userNum)])
+                setUserScore(cekData[Number(userNum)].total_score)
         }catch(err){
             console.log(err)
         }
@@ -147,7 +153,16 @@ export default function ProfilePage(){
             <NavbarAuthComponent />
         
             <div className="container border rounded border-info mt-3">
-                <h1>Profile Page</h1>  
+                <h1>Profile Page</h1>
+                {
+                    (userScore > 9) && (<img src="assets/badge/silver.png" height={50} width={50}></img>)
+                }
+                {
+                    (userScore > 99) && (<img src="assets/badge/gold.png" height={50} width={50}></img>)
+                }
+                {
+                    (userScore > 999) && (<img src="assets/badge/platinum.png" height={50} width={50}></img>)
+                }
                 <form onSubmit={handleEdit}>
                     <div className="mb-3 rounded border">
                         <label className="form-label"><b>id</b></label>
@@ -197,15 +212,6 @@ export default function ProfilePage(){
                             profileUser && (<p className="text-muted">{profileUser.total_score}</p>)
                         }                 
                     </div>
-                    {
-                            Number(profileUser.total_score) > 9 && <img src="assets/badge/silver.png" height={50} width={50}></img>
-                        }
-                        {
-                            Number(profileUser.total_score) > 99 && <img src="assets/badge/gold.png" height={50} width={50}></img>
-                        }
-                        {
-                            Number(profileUser.total_score) > 999 && <img src="assets/badge/platinum.png" height={50} width={50}></img>
-                        }
                     <button type="submit" className="btn btn-primary">Edit Profile</button>
                 </form>
             </div>
