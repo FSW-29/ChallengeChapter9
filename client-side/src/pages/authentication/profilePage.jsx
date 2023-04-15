@@ -8,10 +8,12 @@ export default function ProfilePage(){
 
     //penampung fetchData
     const [profileUser, setProfileUser]=useState();
+    let userNum=null;
+    const database= getDatabase(firebase);
 
     let navigate=useNavigate()
-    let userNum=null;
     
+
     let [userScore, setUserScore]=useState();
 
     let [userCity, setUserCity]=useState();
@@ -20,7 +22,7 @@ export default function ProfilePage(){
 
 
 
-    const database= getDatabase(firebase);
+    
 
     useEffect(() =>{
         cekToken();
