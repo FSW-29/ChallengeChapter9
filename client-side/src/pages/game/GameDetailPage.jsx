@@ -5,6 +5,8 @@ import NavbarHomeComponent from "../../components/NavbarHome";
 function GameDetailPage(props) {
   const navigate = useNavigate();
   let frame;
+  let arrayLb = props.propsLb;
+  let leaderBoard = [];
 
   useEffect(() => {
     cekToken();
@@ -16,11 +18,30 @@ function GameDetailPage(props) {
     }
   };
 
-  //kembali ke halaman sebelumnya
-  const handleBack = (e) => {
-    e.preventDefault();
-    navigate("/game-list");
+  const handleLeaderBoard = () => {
+    for (let property in arrayLb) {
+      leaderBoard.push(arrayLb[property]);
+    }
+    console.log(leaderBoard, "====>a");
   };
+
+  handleLeaderBoard();
+
+  function compare(a, b) {
+    if (a.score < b.score) {
+      return 1;
+    }
+    if (a.score > b.score) {
+      return -1;
+    }
+    return 0;
+  }
+
+  //kembali ke halaman sebelumnya
+  // const handleBack = (e) => {
+  //   e.preventDefault();
+  //   navigate("/game-list");
+  // };
 
   //untuk mengubah huruf depan pada kata menjadi kapital
   const capitalize = (str) => {
@@ -46,40 +67,63 @@ function GameDetailPage(props) {
     <>
       <NavbarHomeComponent />
       <div className="text-center">{frame}</div>
-      <div className="pt-3 ps-5 w-50 fs-4">
-        <h1>{props.propsDetailGame.name}</h1>
-        <button className="rounded-4 bg-secondary text-white fs-5">
-          <i className="fa fa-share-alt" /> Share
-        </button>
-        <br />
-        <table>
-          <tr>
-            <td>Developer</td>
-            <td>:</td>
-            <td></td>
-            <td>{props.propsDetailGame.developer}</td>
-          </tr>
-          <tr>
-            <td>Platform</td>
-            <td>:</td>
-            <td></td>
-            <td>{props.propsDetailGame.platform}</td>
-          </tr>
-          <tr>
-            <td>Type</td>
-            <td>:</td>
-            <td></td>
-            <td>{capitalize(props.propsDetailGame.type)}</td>
-          </tr>
-        </table>
-        <br />
-        <p>{props.propsDetailGame.desc}</p>
-        <button
+      <div>
+        <div className="row align-items-start pb-3 ">
+          <div className="col-6">
+            <div className="pt-3 ps-5 fs-4 ">
+              <h1>{props.propsDetailGame.name}</h1>
+              <table>
+                <tr>
+                  <td>Developer</td>
+                  <td>:</td>
+                  <td></td>
+                  <td>{props.propsDetailGame.developer}</td>
+                </tr>
+                <tr>
+                  <td>Platform</td>
+                  <td>:</td>
+                  <td></td>
+                  <td>{props.propsDetailGame.platform}</td>
+                </tr>
+                <tr>
+                  <td>Type</td>
+                  <td>:</td>
+                  <td></td>
+                  <td>{capitalize(props.propsDetailGame.type)}</td>
+                </tr>
+              </table>
+              <br />
+              <p>{props.propsDetailGame.desc}</p>
+              {/* <button
           className="w-5 h-5 fs-5 bg-secondary rounded-3 text-white"
           onClick={handleBack}
         >
           BACK
-        </button>
+        </button> */}
+            </div>
+          </div>
+          <div className="col-6 text-center pt-4 pe-5">
+            <h1>LEADERBOARD</h1>
+            <table className="table table-striped table-dark fw-bold fs-5 mt-5 ">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {arrayLb.sort(compare).map((el, idx) => (
+                  <tr key={el.id}>
+                    <td>{idx + 1}</td>
+                    <td>{el.name}</td>
+                    <td>{el.score}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   );

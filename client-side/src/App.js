@@ -25,28 +25,38 @@ function App() {
   };
 
   // ambil data dr json lalu di alihkan ke game list page
-  const array = listGame.game;
-  let arrayy = [];
+  //const array = listGame.game;
+  let arrayGame;
+  let [arrGame, setArrGame] = useState();
+
+  let arrayLb;
+  let [arrLb, setArrLb] = useState();
 
   const fecthDataGame = async () => {
     try {
       const databaseFirebase = await get(child(ref(database), "game"));
-      let cekData = Object.values(databaseFirebase.val());
+      arrayGame = Object.values(databaseFirebase.val());
+      setArrGame(arrayGame);
+      //console.log(arrayGame, "====>b");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      for (let i = 0; i < cekData.length; i++) {
-        arrayy.push(cekData[i]);
-      }
+  const fecthDataLeaderBoard = async () => {
+    try {
+      const databaseFirebase = await get(child(ref(database), "leaderboard"));
+      arrayLb = Object.values(databaseFirebase.val());
+      setArrLb(arrayLb);
+      //console.log(arrayLb, "====>b");
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    let i = 0;
-    if (i === 0) {
-      fecthDataGame();
-      i = 1;
-    }
+    fecthDataGame();
+    fecthDataLeaderBoard();
   }, []);
 
   return (
@@ -58,17 +68,18 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route exact path="/profile" element={<ProfilePage />} />
-
           <Route path="/login" element={<LoginPage />} />
           <Route
             exact
             path="/game-list"
-            element={<GameListPage propsGame={handleGame} propsArray={array} />}
+            element={
+              <GameListPage propsGame={handleGame} propsArray={arrGame} />
+            }
           />
           <Route
             exact
             path={"/game-detail/:name"}
-            element={<GameDetailPage propsDetailGame={game} />}
+            element={<GameDetailPage propsDetailGame={game} propsLb={arrLb} />}
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
