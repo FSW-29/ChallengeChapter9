@@ -128,6 +128,7 @@ const LoginPage = () => {
       });
 
       localStorage.setItem('token', loginResult.user.uid);
+      console.info(loginResult.user.uid, '==> ini uid');
 
       navigate('/home');
     } catch (error) {
