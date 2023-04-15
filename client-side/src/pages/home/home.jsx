@@ -1,20 +1,20 @@
 import React from "react";
 import NavbarHomeComponent from "../../components/NavbarHome";
-import { useNavigate } from "react-router";
-import { getAuth, signOut } from "firebase/auth";
-import firebase from "../../services/firebase";
+// import { useNavigate } from "react-router";
+// import { getAuth, signOut } from "firebase/auth";
+// import firebase from "../../services/firebase";
 
 const HomePage = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const handleLogout = async () => {
-      const auth = getAuth(firebase);
-      await signOut(auth);
+    // const handleLogout = async () => {
+    //   const auth = getAuth(firebase);
+    //   await signOut(auth);
 
-      localStorage.removeItem('token');
-      navigate('/login');
-    };
+    //   localStorage.removeItem('token');
+    //   navigate('/login');
+    // };
 
     return(
         <>

@@ -16,7 +16,7 @@ const LoginPage = () => {
   let i = 0;
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      navigate('/');
+      navigate('/home');
     }
   }, [i, navigate]);
 
@@ -62,7 +62,7 @@ const LoginPage = () => {
       const isEmailExist = users.find((user) => user.email === email);
 
       if (isEmailExist) {
-        console.info(isEmailExist, '==> email ditemukan');
+        // console.info(isEmailExist, '==> email ditemukan');
         // > Cek config firebase.js
         const auth = getAuth(firebase);
         // > Buat akun user (authentication)
@@ -72,19 +72,20 @@ const LoginPage = () => {
           password
         );
 
-        console.info(userCredential, '==> user credential');
+        // console.info(userCredential, '==> user credential');
 
         // > Tampilkan user data (credentials)
         const user = userCredential.user;
-        console.log(user, "==> Success Login User");
+        // console.info(user, "==> Success Login User");
+        // console.info(user.uid, '==> uid user');
 
-        // Simpan token
-        const token = user.accessToken;
+        // Simpan token (token dalam bentuk uid)
+        const token = user.uid;
         // console.info(token, 'ini token');
         localStorage.setItem('token', token);
 
-        // > Jika login berhasil direct kehalaman login
-        navigate('/');
+        // > Jika login berhasil direct kehalaman home
+        navigate('/home');
       } else {
         return alert('Check Again Your Login Form');
       }
@@ -100,8 +101,8 @@ const LoginPage = () => {
       const auth = getAuth(firebase);
       const provider = new GoogleAuthProvider();
       const loginResult = await signInWithPopup(auth, provider);
-      console.info(loginResult, '==> 1');
-      console.info(loginResult.user, '==> 2');
+      // console.info(loginResult, '==> 1');
+      // console.info(loginResult.user, '==> 2');
 
       // > Get user id, username, email
       // => id
@@ -111,7 +112,7 @@ const LoginPage = () => {
       // => username
       const name = loginResult.user.displayName;
       const splitName = name.split(' ');
-      const usernameUser = splitName[0].toLowerCase() + splitName[1].toLocaleLowerCase() + 'nz';
+      const usernameUser = splitName[0].toLowerCase() + splitName[1].toLocaleLowerCase() + Math.floor(Math.random() * 1000);
 
       // > Proses Simpan Kedalam Realtime Database
       const database = getDatabase(firebase);
@@ -120,16 +121,16 @@ const LoginPage = () => {
         id: idUser,
         email: emailUser,
         username: usernameUser,
-        password: 'password',
         total_score: 0,
         biodata: 'Belum Diatur',
         city: 'Belum Diatur',
         social_media: 'Belum Diatur'
       });
 
-      localStorage.setItem('token', loginResult.user.accessToken);
+      localStorage.setItem('token', loginResult.user.uid);
+      // console.info(loginResult.user.uid, '==> ini uid');
 
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.info(error.message);
     }
