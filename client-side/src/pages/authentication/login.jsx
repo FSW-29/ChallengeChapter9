@@ -79,7 +79,7 @@ const LoginPage = () => {
         console.log(user, "==> Success Login User");
 
         // Simpan token
-        const token = user.accessToken;
+        const token = user.uid;
         // console.info(token, 'ini token');
         localStorage.setItem('token', token);
 
