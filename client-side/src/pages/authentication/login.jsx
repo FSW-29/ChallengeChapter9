@@ -20,7 +20,7 @@ const LoginPage = () => {
     }
   }, [i, navigate]);
 
-  // > Login Process
+  // > Login Using Email and Password
   // => Ambil data dari form login
   const handleFormLogin = (e) => {
     setFormLogin((data) => {
@@ -95,6 +95,7 @@ const LoginPage = () => {
     }
   }
 
+  // > Login Using Google Auth
   const loginWithGoogle =  async () => {
     try {
       // > Proses Auth
@@ -165,7 +166,7 @@ const LoginPage = () => {
                 </div>
                 <div className="d-grid gap-2 my-3">
                   <hr />
-                  <Link className="text-decoration-none text-center text-black" onClick={ () => alert('Feature is Coming Soon!') }>
+                  <Link to='/reset-password' className="text-decoration-none text-center text-black">
                     Forgot the Password? Press Here
                   </Link>
                 </div>
