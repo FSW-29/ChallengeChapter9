@@ -48,6 +48,11 @@ export default function ProfilePage(){
                         console.log(userNum,"===> data user berada di array posisi ini")
                     }
                 }
+                if(!userNum){
+                    alert('token invalid, you access our page illegaly')
+                    localStorage.removeItem('token');
+                    navigate('/login')
+                }
                 setProfileUser(cekData[Number(userNum)])
         }catch(err){
             console.log(err)
@@ -128,6 +133,7 @@ export default function ProfilePage(){
             const updates={};
             updates['/users/'+tempProperty]=inputUser
             update(ref(database),updates);
+            alert("Profile Successfully Updated!")
             navigate('/profile')
 
             
@@ -144,6 +150,15 @@ export default function ProfilePage(){
         
             <div className="container border rounded border-info mt-3">
                 <h1>Profile Page</h1>
+                {
+                    Number(profileUser.total_score) > 9 && <img src="assets/badge/silver.png" height={50} width={50}></img>
+                }
+                {
+                    Number(profileUser.total_score) > 99 && <img src="assets/badge/gold.png" height={50} width={50}></img>
+                }
+                {
+                    Number(profileUser.total_score) > 999 && <img src="assets/badge/platinum.png" height={50} width={50}></img>
+                }  
                 <form onSubmit={handleEdit}>
                     <div className="mb-3 rounded border">
                         <label className="form-label"><b>id</b></label>
