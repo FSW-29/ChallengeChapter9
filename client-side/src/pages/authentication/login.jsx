@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import NavbarAuthComponent from "../../components/NavbarAuth";
 import { get, getDatabase, ref, push } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import firebase from "../../services/firebase";
+import NavbarLandingComponent from "../../components/NavbarLanding";
 
 const LoginPage = () => {
   const [formLogin, setFormLogin] = useState({
@@ -20,7 +20,7 @@ const LoginPage = () => {
     }
   }, [i, navigate]);
 
-  // > Login Process
+  // > Login Using Email and Password
   // => Ambil data dari form login
   const handleFormLogin = (e) => {
     setFormLogin((data) => {
@@ -79,9 +79,11 @@ const LoginPage = () => {
         // console.info(user, "==> Success Login User");
         // console.info(user.uid, '==> uid user');
 
-        const token = user.uid;
+        // > Simpan token (token dalam bentuk uid)
+        const tokenUID = user.uid;
         // console.info(token, 'ini token');
-        localStorage.setItem('token', token);
+        // > Generate local storage untuk simpan token
+        localStorage.setItem('token', tokenUID);
 
         // > Jika login berhasil direct kehalaman home
         navigate('/home');
@@ -94,6 +96,7 @@ const LoginPage = () => {
     }
   }
 
+  // > Login Using Google Auth
   const loginWithGoogle =  async () => {
     try {
       // > Proses Auth
@@ -120,13 +123,18 @@ const LoginPage = () => {
         id: idUser,
         email: emailUser,
         username: usernameUser,
+        password: '0n3ucoSxNHHYLyIq9qid0z5UR',
         total_score: 0,
         biodata: 'Belum Diatur',
         city: 'Belum Diatur',
         social_media: 'Belum Diatur'
       });
 
-      localStorage.setItem('token', loginResult.user.uid);
+      // > Buat token (generate token) bila user login dengan google auth
+      const tokenLoginGoogleUID = loginResult.user.uid;
+      // > Set token
+      localStorage.setItem('token', tokenLoginGoogleUID);
+      // console.info(loginResult.user.uid, '==> ini uid');
 
       navigate('/home');
     } catch (error) {
@@ -136,7 +144,7 @@ const LoginPage = () => {
 
   return(
     <>
-      <NavbarAuthComponent />
+      <NavbarLandingComponent />
       <div className="container mt-3">
         <div className="row align-items-center justify-content-center" style={{ height: '100vh' }}>
           <div className="col-sm-12 col-md-8 col-lg-8">
@@ -163,7 +171,7 @@ const LoginPage = () => {
                 </div>
                 <div className="d-grid gap-2 my-3">
                   <hr />
-                  <Link className="text-decoration-none text-center text-black" onClick={ () => alert('Feature is Coming Soon!') }>
+                  <Link to='/reset-password' className="text-decoration-none text-center text-black">
                     Forgot the Password? Press Here
                   </Link>
                 </div>

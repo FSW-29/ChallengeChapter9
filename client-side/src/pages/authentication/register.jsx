@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import NavbarAuthComponent from "../../components/NavbarAuth"
 import { Link, useNavigate } from "react-router-dom";
 import { get, getDatabase, push, ref } from "firebase/database";
 import firebase from "../../services/firebase";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import NavbarLandingComponent from "../../components/NavbarLanding";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState('');
@@ -101,7 +101,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <NavbarAuthComponent />
+      <NavbarLandingComponent />
       <div className="container mt-3">
         <div
           className="row align-items-center justify-content-center"
