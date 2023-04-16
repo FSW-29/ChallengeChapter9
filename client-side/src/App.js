@@ -15,11 +15,14 @@ import HomePage from "./pages/home/home";
 
 function App() {
   let [game, setGame] = useState([]);
+  let [username, setUsername] = useState("");
+  let userNum = null;
+  let usernameTemp;
   const database = getDatabase(firebase);
 
   // Ambil data game yg di select lalu di set di useState untuk digunakan di game detail page
   const handleGame = (e) => {
-    console.log(e, "======> id");
+    // console.log(e, "======> id");
     setGame(e);
     return e;
   };
@@ -31,6 +34,28 @@ function App() {
 
   let arrayLb;
   let [arrLb, setArrLb] = useState();
+
+  const fetchDataUser = async () => {
+    try {
+      const databaseFirebase = await get(child(ref(database), "users"));
+
+      let cekData = Object.values(databaseFirebase.val());
+      let tokenCurrentUser = localStorage.getItem("token");
+
+      for (let i = 0; i < cekData.length; i++) {
+        if (cekData[i].id === tokenCurrentUser) {
+          userNum = i;
+        }
+      }
+      if (!localStorage.getItem("token")) {
+        setUsername("");
+      } else {
+        setUsername(cekData[Number(userNum)].username);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fecthDataGame = async () => {
     try {
@@ -55,6 +80,7 @@ function App() {
   };
 
   useEffect(() => {
+    fetchDataUser();
     fecthDataGame();
     fecthDataLeaderBoard();
   }, []);
@@ -63,9 +89,22 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/home"
+            element={
+              <HomePage
+                propsSetUsername={username}
+                propsArray={arrGame}
+                propsGame={handleGame}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <LandingPage propsArray={arrGame} propsGame={handleGame} />
+            }
+          />
           <Route path="/register" element={<RegisterPage />} />
           <Route exact path="/profile" element={<ProfilePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -73,13 +112,23 @@ function App() {
             exact
             path="/game-list"
             element={
-              <GameListPage propsGame={handleGame} propsArray={arrGame} />
+              <GameListPage
+                propsGame={handleGame}
+                propsArray={arrGame}
+                propsSetUsername={username}
+              />
             }
           />
           <Route
             exact
             path={"/game-detail/:name"}
-            element={<GameDetailPage propsDetailGame={game} propsLb={arrLb} />}
+            element={
+              <GameDetailPage
+                propsDetailGame={game}
+                propsLb={arrLb}
+                propsSetUsername={username}
+              />
+            }
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

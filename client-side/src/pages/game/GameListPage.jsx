@@ -78,7 +78,7 @@ function GameListPage(props) {
       {!localStorage.getItem("token") ? (
         <NavbarLandingComponent />
       ) : (
-        <NavbarHomeComponent />
+        <NavbarHomeComponent propsPutUsername={props.propsSetUsername} />
       )}
 
       <CarouselGameListComponent />
