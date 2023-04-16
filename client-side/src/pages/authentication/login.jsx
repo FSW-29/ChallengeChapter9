@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import NavbarAuthComponent from "../../components/NavbarAuth";
 import { get, getDatabase, ref, push } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import firebase from "../../services/firebase";
+import NavbarLandingComponent from "../../components/NavbarLanding";
 
 const LoginPage = () => {
   const [formLogin, setFormLogin] = useState({
@@ -144,7 +144,7 @@ const LoginPage = () => {
 
   return(
     <>
-      <NavbarAuthComponent />
+      <NavbarLandingComponent />
       <div className="container mt-3">
         <div className="row align-items-center justify-content-center" style={{ height: '100vh' }}>
           <div className="col-sm-12 col-md-8 col-lg-8">

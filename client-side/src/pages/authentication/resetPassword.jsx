@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 // import { getDatabase } from "@firebase/database";
 import firebase from "../../services/firebase";
-import NavbarAuthComponent from "../../components/NavbarAuth";
 import { useNavigate } from "react-router";
+import NavbarLandingComponent from "../../components/NavbarLanding";
 
 const ResetPasswordPage = () => {
   const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      <NavbarAuthComponent />
+      <NavbarLandingComponent />
       <div className="container mt-3">
         <div className="row align-items-center justify-content-center" style={{ height: '100vh' }}>
           <div className="col-sm-12 col-md-8 col-lg-8">
