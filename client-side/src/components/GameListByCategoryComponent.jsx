@@ -33,9 +33,9 @@ function GameListByCategoryComponent(props) {
               hashtag={"#" + el.name}
             >
               <FacebookIcon size={40} round={true} />
-            </FacebookShareButton>
+            </FacebookShareButton> 
 
-            <WhatsappShareButton
+             <WhatsappShareButton
               url={shareUrl}
               quote={el.name}
               hashtag={"#" + el.name}

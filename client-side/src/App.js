@@ -8,13 +8,13 @@ import NotFoundPage from "./pages/notfound/notfound";
 import GameListPage from "./pages/game/GameListPage";
 import GameDetailPage from "./pages/game/GameDetailPage";
 import listGame from "./list-game.json";
-import LoginPage from './pages/authentication/login';
-import ProfilePage from './pages/authentication/profilePage';
-import LandingPage from './pages/landing/landing';
-import HomePage from './pages/home/home';
+import LoginPage from "./pages/authentication/login";
+import ProfilePage from "./pages/authentication/profilePage";
+import LandingPage from "./pages/landing/landing";
+import HomePage from "./pages/home/home";
+import GameSuitComponent from "./components/GameSuitComponents";
 import ResetPasswordPage from "./pages/authentication/resetPassword";
 import ResetPasswordFormPage from "./pages/authentication/formResetPassword";
-
 
 function App() {
   let [game, setGame] = useState([]);
@@ -140,6 +140,8 @@ function App() {
             }
           />
           <Route path="*" element={<NotFoundPage />} />
+          <Route exact path="/game-suit" 
+            element={<GameSuitComponent />} />
         </Routes>
       </BrowserRouter>
     </>
