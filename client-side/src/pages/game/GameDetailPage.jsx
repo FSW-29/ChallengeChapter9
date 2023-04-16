@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import NavbarHomeComponent from "../../components/NavbarHome";
+import GameSuitComponent from "../../components/GameSuitComponents";
 
 function GameDetailPage(props) {
   const navigate = useNavigate();
@@ -28,7 +29,9 @@ function GameDetailPage(props) {
   };
 
   if (props.propsDetailGame.type === "new") {
-    frame = <></>;
+    frame = <>
+      <GameSuitComponent />
+    </>;
   } else {
     frame = (
       <iframe

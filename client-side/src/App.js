@@ -12,6 +12,7 @@ import LoginPage from "./pages/authentication/login";
 import ProfilePage from "./pages/authentication/profilePage";
 import LandingPage from "./pages/landing/landing";
 import HomePage from "./pages/home/home";
+import GameSuitComponent from "./components/GameSuitComponents";
 
 function App() {
   let [game, setGame] = useState([]);
@@ -71,6 +72,8 @@ function App() {
             element={<GameDetailPage propsDetailGame={game} />}
           />
           <Route path="*" element={<NotFoundPage />} />
+          <Route exact path="/game-suit" 
+            element={<GameSuitComponent />} />
         </Routes>
       </BrowserRouter>
     </>
