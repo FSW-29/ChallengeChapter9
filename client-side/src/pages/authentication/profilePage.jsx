@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { ref, get, child, getDatabase, update } from "firebase/database";
 import firebase from "../../services/firebase";
 import { useNavigate } from "react-router";
-import NavbarAuthComponent from "../../components/NavbarAuth";
+import NavbarHomeComponent from "../../components/NavbarHome"
 
-export default function ProfilePage() {
+export default function ProfilePage(props) {
   //penampung fetchData
   const [profileUser, setProfileUser] = useState();
   let userNum = null;
@@ -142,7 +142,7 @@ export default function ProfilePage() {
 
   return (
     <>
-      <NavbarAuthComponent />
+      <NavbarHomeComponent propsPutUsername={props.propsSetUsername} />
 
       <div className="container border rounded border-info mt-3">
         <h1>Profile Page</h1>

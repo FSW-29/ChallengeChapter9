@@ -106,7 +106,7 @@ function App() {
             }
           />
           <Route path="/register" element={<RegisterPage />} />
-          <Route exact path="/profile" element={<ProfilePage />} />
+          <Route exact path="/profile" element={<ProfilePage propsSetUsername={username} />} />
           <Route path="/login" element={<LoginPage />} />
           <Route
             exact
