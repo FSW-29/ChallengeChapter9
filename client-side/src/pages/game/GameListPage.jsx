@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import CarouselGameListComponent from "../../components/CarouselGameListComponent";
 import GameListByCategoryComponent from "../../components/GameListByCategoryComponent";
@@ -17,37 +16,38 @@ function GameListPage(props) {
   //filter data pada sesuai kategori
 
   const handleGameRacing = () => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].type.toLowerCase() === "racing") {
-        racing.push(array[i]);
+    for (let property in array) {
+      if (array[property].type === "racing") {
+        racing.push(array[property]);
       }
     }
-
-    //   return array.filter((item) => item.type.toLowerCase() === "racing");
+    //console.log(racing, "====>a");
+    //return array.filter((item) => item.type.toLowerCase() === "racing");
   };
 
   const handleGamePuzzle = () => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].type.toLowerCase() === "puzzle") {
-        puzzle.push(array[i]);
+    for (let property in array) {
+      if (array[property].type === "puzzle") {
+        puzzle.push(array[property]);
       }
     }
+    //console.log(puzzle, "====>a");
     //return array.filter((item) => item.type.toLowerCase() === "puzzle");
   };
 
   const handleGameAction = () => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].type.toLowerCase() === "action") {
-        action.push(array[i]);
+    for (let property in array) {
+      if (array[property].type === "action") {
+        action.push(array[property]);
       }
     }
     //return array.filter((item) => item.type.toLowerCase() === "action");
   };
 
   const handleGameNew = () => {
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].type.toLowerCase() === "new") {
-        return gameNew.push(array[i]);
+    for (let property in array) {
+      if (array[property].type === "new") {
+        gameNew.push(array[property]);
       }
     }
     //return array.filter((item) => item.type.toLowerCase() === "new");
