@@ -11,6 +11,7 @@ import ProfilePage from './pages/authentication/profilePage';
 import LandingPage from './pages/landing/landing';
 import HomePage from './pages/home/home';
 import ResetPasswordPage from "./pages/authentication/resetPassword";
+import ResetPasswordFormPage from "./pages/authentication/formResetPassword";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/profile" element={<ProfilePage/>}/>
           <Route path='/login' element={ <LoginPage /> } />
           <Route path="/reset-password" element={ <ResetPasswordPage /> } />
+          <Route path="/reset-password-form" element={ <ResetPasswordFormPage /> } />
           <Route
             exact
             path="/game-list"
