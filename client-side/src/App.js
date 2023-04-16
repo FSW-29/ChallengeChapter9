@@ -1,6 +1,8 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ref, set, get, child, getDatabase, update } from "firebase/database";
+import firebase from "./services/firebase";
 import RegisterPage from "./pages/authentication/register";
 import NotFoundPage from "./pages/notfound/notfound";
 import GameListPage from "./pages/game/GameListPage";
@@ -16,41 +18,128 @@ import ResetPasswordFormPage from "./pages/authentication/formResetPassword";
 
 function App() {
   let [game, setGame] = useState([]);
+  let [username, setUsername] = useState("");
+  let userNum = null;
+  let usernameTemp;
+  const database = getDatabase(firebase);
 
   // Ambil data game yg di select lalu di set di useState untuk digunakan di game detail page
   const handleGame = (e) => {
-    console.log(e, "======> id");
+    // console.log(e, "======> id");
     setGame(e);
     return e;
   };
 
   // ambil data dr json lalu di alihkan ke game list page
-  const array = listGame.game;
+  //const array = listGame.game;
+  let arrayGame;
+  let [arrGame, setArrGame] = useState();
+
+  let arrayLb;
+  let [arrLb, setArrLb] = useState();
+
+  const fetchDataUser = async () => {
+    try {
+      const databaseFirebase = await get(child(ref(database), "users"));
+
+      let cekData = Object.values(databaseFirebase.val());
+      let tokenCurrentUser = localStorage.getItem("token");
+
+      for (let i = 0; i < cekData.length; i++) {
+        if (cekData[i].id === tokenCurrentUser) {
+          userNum = i;
+        }
+      }
+      if (!localStorage.getItem("token")) {
+        setUsername("");
+      } else {
+        setUsername(cekData[Number(userNum)].username);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const fecthDataGame = async () => {
+    try {
+      const databaseFirebase = await get(child(ref(database), "game"));
+      arrayGame = Object.values(databaseFirebase.val());
+      setArrGame(arrayGame);
+      //console.log(arrayGame, "====>b");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fecthDataLeaderBoard = async () => {
+    try {
+      const databaseFirebase = await get(child(ref(database), "leaderboard"));
+      arrayLb = Object.values(databaseFirebase.val());
+      setArrLb(arrayLb);
+      //console.log(arrayLb, "====>b");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataUser();
+    fecthDataGame();
+    fecthDataLeaderBoard();
+  }, []);
 
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path='/home' element={ <HomePage /> } />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path='/' element={ <LandingPage />} />
           <Route path='/register' element={ <RegisterPage /> } />
           <Route exact path="/profile" element={<ProfilePage/>}/>
           <Route path='/login' element={ <LoginPage /> } />
           <Route path="/reset-password" element={ <ResetPasswordPage /> } />
           <Route path="/reset-password-form" element={ <ResetPasswordFormPage /> } />
           <Route
+            path="/home"
+            element={
+              <HomePage
+                propsSetUsername={username}
+                propsArray={arrGame}
+                propsGame={handleGame}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <LandingPage propsArray={arrGame} propsGame={handleGame} />
+            }
+          />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route exact path="/profile" element={<ProfilePage propsSetUsername={username} />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
             exact
             path="/game-list"
-            element={<GameListPage propsGame={handleGame} propsArray={array} />}
+            element={
+              <GameListPage
+                propsGame={handleGame}
+                propsArray={arrGame}
+                propsSetUsername={username}
+              />
+            }
           />
           <Route
             exact
             path={"/game-detail/:name"}
-            element={<GameDetailPage propsDetailGame={game} />}
+            element={
+              <GameDetailPage
+                propsDetailGame={game}
+                propsLb={arrLb}
+                propsSetUsername={username}
+              />
+            }
           />
-          <Route path='*' element={ <NotFoundPage /> } />
-          
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </>

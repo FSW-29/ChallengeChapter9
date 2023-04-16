@@ -1,36 +1,80 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavbarHomeComponent from "../../components/NavbarHome";
-// import { useNavigate } from "react-router";
+import LandingCarouselComponent from "../../components/LandingCarousel";
+import { useNavigate } from "react-router";
+import LandingDefinitionComponent from "../../components/LandingDefinition";
+import CarouselGameListComponent from "../../components/CarouselGameListComponent";
+import GameListByCategoryComponent from "../../components/GameListByCategoryComponent";
 // import { getAuth, signOut } from "firebase/auth";
 // import firebase from "../../services/firebase";
 
-const HomePage = () => {
+const HomePage = (props) => {
+  const array = props.propsArray;
+  let racing = [];
+  const navigate = useNavigate();
 
-    // const navigate = useNavigate();
+  useEffect(() => {
+    cekToken();
+    // fetchData();
+    // console.log(database,'===> isi get database')
+    // console.log(authFirebase, '===> isi getAuth')
+    // console.log(userId,'===> isi auth current user uid')
+  }, []);
 
-    // const handleLogout = async () => {
-    //   const auth = getAuth(firebase);
-    //   await signOut(auth);
+  const cekToken = () => {
+    if (!localStorage.getItem("token")) {
+      let tokenLocal = localStorage.getItem("token");
+      console.log(tokenLocal, "masuk ga ya");
+      navigate("/login");
+    }
+  };
 
-    //   localStorage.removeItem('token');
-    //   navigate('/login');
-    // };
+  const handleGameRacing = () => {
+    for (let property in array) {
+      if (array[property].type === "racing") {
+        racing.push(array[property]);
+      }
+    }
+  };
 
-    return(
-        <>
-            <NavbarHomeComponent />
-            <div className="home">
-                <div className="text-center text-white" >  
-                    <h1 className="home-title" style={{paddingTop: "15%"}}>PLAY TRADITIONAL GAME</h1>
-                    <h6 className="home-tagline">Experience New Traditional Gameplay</h6>
-                    <a href="https://www.crazygames.com/" type="button" className="btn btn-secondary btn-lg btn-block btn btn-warning bold">PLAY NOW</a>
-                
-                {/* <button className="btn btn-primary" onClick={ handleLogout }>Logout</button> */}
-                </div> 
-            </div>
-        </>
-    );
+  handleGameRacing();
 
-}
+  const handleDetail = (e) => {
+    e.preventDefault();
+
+    //find data berdasarkan select
+    const game = array.find((obj) => obj.id === parseInt(e.target.value));
+    props.propsGame(game);
+
+    navigate("/game-detail/" + e.target.value);
+  };
+
+  const navigateToGameList = () => {
+    navigate("/game-list");
+  };
+
+  return (
+    <>
+      <NavbarHomeComponent propsPutUsername={props.propsSetUsername} />
+      {/* <LandingCarouselComponent />*/}
+      <CarouselGameListComponent />
+      <LandingDefinitionComponent />
+      <div className="bg-dark text-white text-center p-3">
+        <GameListByCategoryComponent
+          propsCategory={"Top"}
+          propsHandleGame={racing}
+          propsHandleDetail={handleDetail}
+        />
+        <button
+          type="button"
+          class="btn btn-outline-light"
+          onClick={navigateToGameList}
+        >
+          VIEW MORE
+        </button>
+      </div>
+    </>
+  );
+};
 
 export default HomePage;

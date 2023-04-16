@@ -1,173 +1,250 @@
 import React, { useEffect, useState } from "react";
-import {ref,set,get,child,getDatabase, update} from "firebase/database"
-import {getAuth} from "firebase/auth"
+import { ref, get, child, getDatabase, update } from "firebase/database";
 import firebase from "../../services/firebase";
-import {useNavigate} from "react-router"
-import NavbarAuthComponent from "../../components/NavbarAuth"
+import { useNavigate } from "react-router";
+import NavbarHomeComponent from "../../components/NavbarHome"
 
+export default function ProfilePage(props) {
+  //penampung fetchData
+  const [profileUser, setProfileUser] = useState();
+  let userNum = null;
+  const database = getDatabase(firebase);
 
-export default function ProfilePage(){
+  let navigate = useNavigate();
 
-    const [profileUser, setProfileUser]=useState();
-    let navigate=useNavigate()
-    let userNum=null;
+  let [userScore, setUserScore] = useState();
 
-    let [userId, setUserId]=useState();
-    let [userName, setUserName]= useState();
-    let [userEmail, setUserEmail]=useState();
-    let [userCity, setUserCity]=useState();
-    let [userBiodata, setUserBiodata]=useState();
-    let [userSocialMedia, setUserSocialMedia]= useState();
-    let [userTotalScore, setUserTotalScore]= useState();
+  let [userUsername, setUserUsername] = useState();
+  let [userCity, setUserCity] = useState();
+  let [userBiodata, setUserBiodata] = useState();
+  let [userSocialMedia, setUserSocialMedia] = useState();
 
+  useEffect(() => {
+    cekToken();
+    fetchData();
+  }, []);
 
-    const database= getDatabase(firebase);
+  const cekToken = () => {
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  };
 
-    // const authFirebase=getAuth(firebase);
-    // const userId=authFirebase.currentUser.uid;
+  const fetchData = async () => {
+    try {
+      const databaseFirebase = await get(child(ref(database), "users"));
 
-    useEffect(() =>{
-        cekToken();
-        fetchData();
-        // console.log(database,'===> isi get database')
-        // console.log(authFirebase, '===> isi getAuth')
-        // console.log(userId,'===> isi auth current user uid')
-    },[])
+      let cekData = Object.values(databaseFirebase.val());
+      let tokenCurrentUser = localStorage.getItem("token");
 
+      console.log(tokenCurrentUser, "==> ini token yang sedang login");
 
-    const cekToken = () => {
-        if (!localStorage.getItem("token")){
-            let tokenLocal=localStorage.getItem("token")
-            console.log(tokenLocal, "masuk ga ya")
-            navigate('/login')
+      for (let i = 0; i < cekData.length; i++) {
+        if (cekData[i].id === tokenCurrentUser) {
+          userNum = i;
+          console.log(userNum, "===> data user berada di array posisi ini");
         }
+      }
+      if (!userNum) {
+        alert("token invalid, you access our page illegaly");
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+      setProfileUser(cekData[Number(userNum)]);
+      setUserScore(cekData[Number(userNum)].total_score);
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    const fetchData = async() =>{
-        try{
-                const databaseFirebase = await(get(child(ref(database),'users')))
-                // console.log(databaseFirebase.val(),"===> ini dari databasefirebase")
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      //ambil data dari realtime firebase di directory /users
+      const databaseFirebase = await get(child(ref(database), "users"));
+      //ubah data yang diambil menjadi array
+      let cekData = Object.values(databaseFirebase.val());
+      //ambil token berisi uid
+      let tokenCurrentUser = localStorage.getItem("token");
+      console.log(tokenCurrentUser, "==> ini token yang sedang login");
 
-                let cekData=Object.values(databaseFirebase.val())
-                let tokenCurrentUser=localStorage.getItem("token")
-                console.log(tokenCurrentUser,"==> ini token yang sedang login")
-                
-                for(let i=0; i<cekData.length; i++){
-                    if(cekData[i].id === tokenCurrentUser){
-                        userNum=i;
-                        console.log(i,"===> data user berada di array posisi ini")
-                    }
-                }
-                
-                // console.log(cekData, '===> isi cekData');
-                setProfileUser(cekData[Number(userNum)])
-                // console.log("halo 2")
-                // console.log(databaseFirebase.val(),'===> INI ISI DATABASE FIREBASE')
-                let collectionObject= databaseFirebase.val();
-                // console.log(typeof(collectionObject));
-                let temp=0
-                let tempProperty;
-                console.log(userNum,"=>")
-                for(let property in collectionObject){
-                    // console.log(index, 'ini index')
-                    // if(temp===Number(userNum)){
-                    //     tempProperty=property;
-                    // }
-                    if(temp===userNum){
-                        console.log(`${property}: ${collectionObject[property]}`)
-                        console.log("kena if")
-                        tempProperty=property
-                    }
-                    temp++
-                    
-                }
-                console.log(tempProperty,"==> INI ISI TEMP PROPERTY")
-                // console.log(cekData[Number(UserNum)], "===> isi dari cekData")
-                // console.log(profileUser, "====> isi profileUser")
-                // console.log(profileUser.biodata, "===> ini ambil dari biodata profileuser")
-            
-        }catch(err){
-            console.log(err)
+      //looping untuk pencarian data user yang sesuai dengan uid
+      for (let i = 0; i < cekData.length; i++) {
+        //kondisinal untuk mengambil index array yang sesuai dengan uid
+        if (cekData[i].id === tokenCurrentUser) {
+          userNum = i;
+          console.log(userNum, "===> data user berada di array posisi ini");
         }
+      }
+      //ambil data /users menjadi kumpulan object of object
+      let collectionObject = databaseFirebase.val();
+      //penampung untuk mengecek looping ke berapa
+      let temp = 0;
+      //penampung index /users/tempProperty dari firebase
+      let tempProperty;
+
+      console.log(userNum, "=>");
+      //looping obbject in object
+      for (let property in collectionObject) {
+        //kondisional buat pengecek apakah looping sudah sesuai dengan index array
+        if (temp === userNum) {
+          // console.log(`${property}: ${collectionObject[property]}`)
+          console.log("kena if");
+
+          tempProperty = property;
+        }
+        temp++;
+      }
+      console.log(tempProperty, "==> INI ISI TEMP PROPERTY dari tombol edit");
+      //ambil data dari input user
+      let tempCity, tempBiodata, tempSocialMedia, tempUsername;
+      if (!userUsername) {
+        tempUsername = cekData[Number(userNum)].username;
+      } else {
+        tempUsername = userUsername;
+      }
+      if (!userCity) {
+        tempCity = cekData[Number(userNum)].city;
+      } else {
+        tempCity = userCity;
+      }
+      if (!userBiodata) {
+        tempBiodata = cekData[Number(userNum)].biodata;
+      } else {
+        tempBiodata = userBiodata;
+      }
+      if (!userSocialMedia) {
+        tempSocialMedia = cekData[Number(userNum)].social_media;
+      } else {
+        tempSocialMedia = userSocialMedia;
+      }
+      const inputUser = {
+        email: cekData[Number(userNum)].email,
+        username: tempUsername,
+        id: cekData[Number(userNum)].id,
+        password: cekData[Number(userNum)].password,
+        total_score: cekData[Number(userNum)].total_score,
+        city: tempCity,
+        biodata: tempBiodata,
+        social_media: tempSocialMedia,
+      };
+
+      console.log(inputUser, "===> ini isi input user");
+      const updates = {};
+      updates["/users/" + tempProperty] = inputUser;
+      update(ref(database), updates);
+      alert("Profile Successfully Updated!");
+      navigate("/home");
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    const handleEdit = async(e) =>{
-        e.preventDefault()
-        try{
-            const inputUser={
-                id:userId,
-                email:userEmail,
-                city:userCity,
-                biodata:userBiodata,
-                social_media:userSocialMedia,
-                total_score:userTotalScore
-            }
+  return (
+    <>
+      <NavbarHomeComponent propsPutUsername={props.propsSetUsername} />
 
-            console.log(inputUser,"===> ini isi input user")
-
-        }catch(err){
-            console.log(err)
-        }e.preventDefault()
-
-
-    }
-
-
-    return(
-        <>
-        
-            <div className="container">
-                <h1>Profile Page</h1>
-                <form onSubmit={handleEdit}>
-                    <div className="mb-3">
-                        <label className="form-label">id</label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.id)
-                        } onChange={e=>setUserId(e.target.value)} readOnly/>                    
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Username</label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.username)
-                        } onChange={e=>setUserName(e.target.value)}/>                    
-                    </div>
-                    <div className="mb-3">
-                        <label  className="form-label">Email</label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.email)
-                        } onChange={e=>setUserEmail(e.target.value)} readOnly/>                    
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label"><b>City</b></label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.city)
-                        } onChange={e=>setUserCity(e.target.value)}/>
-                        Edit City
-                        <input type="text" className="form-control" onChange={e=>setUserCity(e.target.value)} />                    
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Biodata</label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.biodata)
-                        } onChange={e=>setUserBiodata(e.target.value)}/>                    
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Social Media</label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.social_media)
-                        } onChange={e=>setUserSocialMedia(e.target.value)}/>                    
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Total Score</label>
-                        <input type="text" className="form-control" value={
-                            profileUser && (profileUser.total_score)
-                        } onChange={e=>setUserTotalScore(e.target.value)} readOnly/>                    
-                    </div>
-                    <button type="submit" className="btn btn-primary">Edit Profile</button>
-                </form>
-            </div>
-        </>
-    )
-
-
+      <div className="container border rounded border-info mt-3">
+        <h1>Profile Page</h1>
+        {userScore > 9 && (
+          <img src="assets/badge/silver.png" height={50} width={50}></img>
+        )}
+        {userScore > 99 && (
+          <img src="assets/badge/gold.png" height={50} width={50}></img>
+        )}
+        {userScore > 999 && (
+          <img src="assets/badge/platinum.png" height={50} width={50}></img>
+        )}
+        <form onSubmit={handleEdit}>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>id</b>
+            </label>
+            {profileUser && <p className="text-muted">{profileUser.id}</p>}
+          </div>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>Username</b>
+            </label>
+            {profileUser && (
+              <p className="text-muted">{profileUser.username}</p>
+            )}
+            <label className="blockquote-footer">
+              <strong>Edit Username</strong>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => setUserUsername(e.target.value)}
+            />
+          </div>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>Email</b>
+            </label>
+            {profileUser && <p className="text-muted">{profileUser.email}</p>}
+          </div>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>City</b>
+            </label>
+            {profileUser && <p className="text-muted">{profileUser.city}</p>}
+            <label className="blockquote-footer">
+              <strong>Edit City</strong>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => setUserCity(e.target.value)}
+            />
+          </div>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>Biodata</b>
+            </label>
+            {profileUser && <p className="text-muted">{profileUser.biodata}</p>}
+            <label className="blockquote-footer">
+              <strong>Edit Biodata</strong>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => setUserBiodata(e.target.value)}
+            />
+          </div>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>Social Media</b>
+            </label>
+            {profileUser && (
+              <a href={profileUser.social_media} className="link-primary">
+                <br />
+                Go to User Social Media
+                <br />
+              </a>
+            )}
+            <label className="blockquote-footer">
+              <strong>Edit Social media</strong>
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              onChange={(e) => setUserSocialMedia(e.target.value)}
+            />
+          </div>
+          <div className="mb-3 rounded border">
+            <label className="form-label">
+              <b>Total Score</b>
+            </label>
+            {profileUser && (
+              <p className="text-muted">{profileUser.total_score}</p>
+            )}
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Edit Profile
+          </button>
+        </form>
+      </div>
+    </>
+  );
 }
