@@ -22,7 +22,7 @@ function GameDetailPage(props) {
     for (let property in arrayLb) {
       leaderBoard.push(arrayLb[property]);
     }
-    console.log(leaderBoard, "====>a");
+    //console.log(leaderBoard, "====>a");
   };
 
   handleLeaderBoard();
@@ -65,7 +65,7 @@ function GameDetailPage(props) {
 
   return (
     <>
-      <NavbarHomeComponent />
+      <NavbarHomeComponent propsPutUsername={props.propsSetUsername} />
       <div className="text-center">{frame}</div>
       <div>
         <div className="row align-items-start pb-3 ">
