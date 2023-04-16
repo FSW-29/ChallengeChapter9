@@ -82,7 +82,7 @@ function GameListPage(props) {
       )}
 
       <CarouselGameListComponent />
-      <div className="container">
+      <div className="container bg-secondary w-100">
         <GameListByCategoryComponent
           propsCategory={"New"}
           propsHandleGame={gameNew}

@@ -20,7 +20,7 @@ function App() {
   let [game, setGame] = useState([]);
   let [username, setUsername] = useState("");
   let userNum = null;
-  let usernameTemp;
+  let name;
   const database = getDatabase(firebase);
 
   // Ambil data game yg di select lalu di set di useState untuk digunakan di game detail page
@@ -42,18 +42,38 @@ function App() {
     try {
       const databaseFirebase = await get(child(ref(database), "users"));
 
-      let cekData = Object.values(databaseFirebase.val());
-      let tokenCurrentUser = localStorage.getItem("token");
+      // let cekData = Object.values(databaseFirebase.val());
+      // let tokenCurrentUser = localStorage.getItem("token");
 
-      for (let i = 0; i < cekData.length; i++) {
-        if (cekData[i].id === tokenCurrentUser) {
-          userNum = i;
+      // for (let i = 0; i < cekData.length; i++) {
+      //   if (cekData[i].id === tokenCurrentUser) {
+      //     userNum = i;
+      //   }
+      // }
+
+      const usersRef = ref(database, "users");
+      const snapshot = await get(usersRef);
+
+      const users = [];
+      snapshot.forEach((childSnapshot) => {
+        const childData = childSnapshot.val();
+        users.push({
+          ids: childSnapshot.key,
+          ...childData,
+        });
+      });
+
+      for (let property in users) {
+        if (users[property].id === localStorage.getItem("token")) {
+          console.log(users[property].username, "========>>> snap");
+          name = users[property].username;
         }
       }
+
       if (!localStorage.getItem("token")) {
         setUsername("");
       } else {
-        setUsername(cekData[Number(userNum)].username);
+        setUsername(name);
       }
     } catch (err) {
       console.log(err);
@@ -82,22 +102,31 @@ function App() {
     }
   };
 
+  //Handle show Username on navbar
+  const handleUserName = (e) => {
+    setUsername(e);
+  };
+
   useEffect(() => {
     fetchDataUser();
     fecthDataGame();
     fecthDataLeaderBoard();
+    handleUserName();
   }, []);
 
   return (
     <>
       <BrowserRouter>
         <Routes>
+          {/* <Route path="/register" element={<RegisterPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path='/register' element={ <RegisterPage /> } />
-          <Route exact path="/profile" element={<ProfilePage/>}/>
-          <Route path='/login' element={ <LoginPage /> } />
-          <Route path="/reset-password" element={ <ResetPasswordPage /> } />
-          <Route path="/reset-password-form" element={ <ResetPasswordFormPage /> } />
+          <Route exact path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} /> */}
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route
+            path="/reset-password-form"
+            element={<ResetPasswordFormPage />}
+          />
           <Route
             path="/home"
             element={
@@ -115,8 +144,15 @@ function App() {
             }
           />
           <Route path="/register" element={<RegisterPage />} />
-          <Route exact path="/profile" element={<ProfilePage propsSetUsername={username} />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            exact
+            path="/profile"
+            element={<ProfilePage propsSetUsername={username} />}
+          />
+          <Route
+            path="/login"
+            element={<LoginPage propsUsername={handleUserName} />}
+          />
           <Route
             exact
             path="/game-list"
@@ -140,8 +176,7 @@ function App() {
             }
           />
           <Route path="*" element={<NotFoundPage />} />
-          <Route exact path="/game-suit" 
-            element={<GameSuitComponent />} />
+          <Route exact path="/game-suit" element={<GameSuitComponent />} />
         </Routes>
       </BrowserRouter>
     </>
