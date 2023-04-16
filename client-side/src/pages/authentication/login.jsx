@@ -79,10 +79,11 @@ const LoginPage = () => {
         // console.info(user, "==> Success Login User");
         // console.info(user.uid, '==> uid user');
 
-        // Simpan token (token dalam bentuk uid)
-        const token = user.uid;
+        // > Simpan token (token dalam bentuk uid)
+        const tokenUID = user.uid;
         // console.info(token, 'ini token');
-        localStorage.setItem('token', token);
+        // > Generate local storage untuk simpan token
+        localStorage.setItem('token', tokenUID);
 
         // > Jika login berhasil direct kehalaman home
         navigate('/home');
@@ -122,13 +123,17 @@ const LoginPage = () => {
         id: idUser,
         email: emailUser,
         username: usernameUser,
+        password: '0n3ucoSxNHHYLyIq9qid0z5UR',
         total_score: 0,
         biodata: 'Belum Diatur',
         city: 'Belum Diatur',
         social_media: 'Belum Diatur'
       });
 
-      localStorage.setItem('token', loginResult.user.uid);
+      // > Buat token (generate token) bila user login dengan google auth
+      const tokenLoginGoogleUID = loginResult.user.uid;
+      // > Set token
+      localStorage.setItem('token', tokenLoginGoogleUID);
       // console.info(loginResult.user.uid, '==> ini uid');
 
       navigate('/home');
