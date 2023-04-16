@@ -4,8 +4,10 @@ import firebase from "../../services/firebase";
 import { useNavigate } from "react-router";
 
 const ResetPasswordFormPage = () => {
+  // > Navigasi kehalaman dituju
   const navigate = useNavigate();
 
+  // > set auth dan realtime database
   const auth = getAuth(firebase);
   const database = getDatabase(firebase);
 
@@ -13,12 +15,15 @@ const ResetPasswordFormPage = () => {
     event.preventDefault();
 
     // > Get data password (input password)
+    // => merupakan kode unik yang dikirimkan oleh Firebase Authentication ke email pengguna saat permintaan reset password dibuat
     const code = new URLSearchParams(window.location.search).get("oobCode");
+    // => value password
     const newPassword = event.target.elements.password.value;
 
     try {
-      // > Proses Reset Password
+      // > digunakan untuk memverifikasi kode reset password yang diberikan oleh Firebase Authentication
       const abc = await verifyPasswordResetCode(auth, code);
+      // > digunakan untuk mengonfirmasi kode reset password dan memperbarui password baru yang diberikan oleh pengguna.
       await confirmPasswordReset(auth, code, newPassword);
 
 
