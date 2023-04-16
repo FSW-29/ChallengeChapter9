@@ -2,6 +2,7 @@ import { getAuth, verifyPasswordResetCode, confirmPasswordReset } from "firebase
 import { getDatabase, update, ref, get } from "@firebase/database";
 import firebase from "../../services/firebase";
 import { useNavigate } from "react-router";
+import NavbarLandingComponent from "../../components/NavbarLanding";
 
 const ResetPasswordFormPage = () => {
   // > Navigasi kehalaman dituju
@@ -63,14 +64,25 @@ const ResetPasswordFormPage = () => {
 
   return (
     <>
-      <>
-        <h1>Input Password Baru</h1>
-        <form onSubmit={handleUpdatePassword}>
-          <label htmlFor="password">Password Baru:</label>
-          <input type="password" id="password" required />
-          <button type="submit">Reset Password</button>
-        </form>
-      </>
+      <NavbarLandingComponent />
+      <div className="container mt-3">
+        <div className="row align-items-center justify-content-center" style={{ height: '100vh' }}>
+          <div className="col-sm-12 col-md-8 col-lg-8">
+            <div className="card p-3">
+              <h1 className="text-center">Reset Password</h1>
+              <form onSubmit={ handleUpdatePassword }>
+                <div className="mb-3">
+                  <label htmlFor="password" className="form-label">password Address</label>
+                  <input name="password" type="password" className="form-control" id="password" placeholder="New Password Address" />
+                </div>
+                <div className="d-grid gap-2 mt-2">
+                  <button type="submit" className="btn btn-primary">Update Password</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
