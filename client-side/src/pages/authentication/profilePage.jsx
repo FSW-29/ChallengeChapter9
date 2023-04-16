@@ -16,6 +16,7 @@ export default function ProfilePage(){
 
     let [userScore, setUserScore]=useState();
 
+    let [userUsername, setUserUsername]=useState();
     let [userCity, setUserCity]=useState();
     let [userBiodata, setUserBiodata]=useState();
     let [userSocialMedia, setUserSocialMedia]= useState();
@@ -106,7 +107,12 @@ export default function ProfilePage(){
             }
             console.log(tempProperty,"==> INI ISI TEMP PROPERTY dari tombol edit")
             //ambil data dari input user
-            let tempCity, tempBiodata, tempSocialMedia;
+            let tempCity, tempBiodata, tempSocialMedia, tempUsername;
+            if(!userUsername){
+                tempUsername=cekData[Number(userNum)].username;
+            }else{
+                tempUsername=userUsername;
+            }
             if(!userCity){
                 tempCity=cekData[Number(userNum)].city;
             }else{
@@ -124,7 +130,7 @@ export default function ProfilePage(){
             }
             const inputUser={
                 email:cekData[Number(userNum)].email,
-                username:cekData[Number(userNum)].username,
+                username:tempUsername,
                 id:cekData[Number(userNum)].id,
                 password:cekData[Number(userNum)].password,
                 total_score:cekData[Number(userNum)].total_score,
@@ -138,7 +144,7 @@ export default function ProfilePage(){
             updates['/users/'+tempProperty]=inputUser
             update(ref(database),updates);
             alert("Profile Successfully Updated!")
-            navigate('/profile')
+            navigate('/home')
 
             
 
@@ -175,6 +181,8 @@ export default function ProfilePage(){
                         {
                             profileUser && (<p className="text-muted">{profileUser.username}</p>)
                         }
+                        <label className="blockquote-footer"><strong>Edit Username</strong></label>
+                        <input type="text" className="form-control" onChange={e=>setUserUsername(e.target.value)}/>
                     </div>
                     <div className="mb-3 rounded border">
                         <label  className="form-label"><b>Email</b></label>
@@ -201,7 +209,7 @@ export default function ProfilePage(){
                     <div className="mb-3 rounded border">
                         <label className="form-label"><b>Social Media</b></label>
                         {
-                            profileUser && (<p className="text-muted">{profileUser.social_media}</p>)
+                            profileUser && (<a href={profileUser.social_media} className="link-primary"><br/>Go to User Social Media<br/></a>)
                         }
                         <label className="blockquote-footer"><strong>Edit Social media</strong></label>
                         <input type="text" className="form-control" onChange={e=>setUserSocialMedia(e.target.value)}/>                    
