@@ -7,20 +7,18 @@ import RegisterPage from "./pages/authentication/register";
 import NotFoundPage from "./pages/notfound/notfound";
 import GameListPage from "./pages/game/GameListPage";
 import GameDetailPage from "./pages/game/GameDetailPage";
-import listGame from "./list-game.json";
-import LoginPage from './pages/authentication/login';
-import ProfilePage from './pages/authentication/profilePage';
-import LandingPage from './pages/landing/landing';
-import HomePage from './pages/home/home';
+//import listGame from "./list-game.json";
+import LoginPage from "./pages/authentication/login";
+import ProfilePage from "./pages/authentication/profilePage";
+import LandingPage from "./pages/landing/landing";
+import HomePage from "./pages/home/home";
 import ResetPasswordPage from "./pages/authentication/resetPassword";
 import ResetPasswordFormPage from "./pages/authentication/formResetPassword";
-
 
 function App() {
   let [game, setGame] = useState([]);
   let [username, setUsername] = useState("");
   let userNum = null;
-  let usernameTemp;
   const database = getDatabase(firebase);
 
   // Ambil data game yg di select lalu di set di useState untuk digunakan di game detail page
@@ -92,12 +90,15 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          {/* <Route path="/register" element={<RegisterPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path='/register' element={ <RegisterPage /> } />
-          <Route exact path="/profile" element={<ProfilePage/>}/>
-          <Route path='/login' element={ <LoginPage /> } />
-          <Route path="/reset-password" element={ <ResetPasswordPage /> } />
-          <Route path="/reset-password-form" element={ <ResetPasswordFormPage /> } />
+          <Route exact path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} /> */}
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route
+            path="/reset-password-form"
+            element={<ResetPasswordFormPage />}
+          />
           <Route
             path="/home"
             element={
@@ -115,7 +116,11 @@ function App() {
             }
           />
           <Route path="/register" element={<RegisterPage />} />
-          <Route exact path="/profile" element={<ProfilePage propsSetUsername={username} />} />
+          <Route
+            exact
+            path="/profile"
+            element={<ProfilePage propsSetUsername={username} />}
+          />
           <Route path="/login" element={<LoginPage />} />
           <Route
             exact

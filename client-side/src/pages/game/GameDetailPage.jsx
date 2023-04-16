@@ -68,7 +68,7 @@ function GameDetailPage(props) {
       <NavbarHomeComponent propsPutUsername={props.propsSetUsername} />
       <div className="text-center">{frame}</div>
       <div>
-        <div className="row align-items-start pb-3 ">
+        <div className="row align-items-start pb-3 text-light bg-secondary">
           <div className="col-6">
             <div className="pt-3 ps-5 fs-4 ">
               <h1>{props.propsDetailGame.name}</h1>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ref, get, child, getDatabase, update } from "firebase/database";
 import firebase from "../../services/firebase";
 import { useNavigate } from "react-router";
-import NavbarHomeComponent from "../../components/NavbarHome"
+import NavbarHomeComponent from "../../components/NavbarHome";
 
 export default function ProfilePage(props) {
   //penampung fetchData
