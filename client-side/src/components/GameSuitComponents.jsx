@@ -1,8 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as ReactDOM from "react-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import firebase from "../services/firebase";
+import { get, getDatabase, ref, update } from "firebase/database";
 
 function GameSuitComponent() {
+  const [user, setUser] = useState({});
+  const [playerScore, setPlayerScore] = useState(0);
+  const [compScore, setCompScore] = useState(0);
+
   let refRockPlayer = useRef("");
   let refRockCom = useRef("");
 
@@ -16,6 +23,26 @@ function GameSuitComponent() {
   let refReset = useRef("");
 
   let hasil_suit;
+
+  const auth = getAuth(firebase);
+  const database = getDatabase(firebase);
+
+  const getDataUserLogin = () => {
+    onAuthStateChanged(auth, (dataUser) => {
+      if (dataUser) {
+        setUser(dataUser);
+      }
+    });
+  };
+
+  let i = 0;
+  useEffect(() => {
+    if (i === 0) {
+      getDataUserLogin();
+      i++;
+    }
+  }, [i]);
+  console.info(user);
 
   let array_com = ["Batu", "Gunting", "Kertas"];
 
@@ -56,17 +83,71 @@ function GameSuitComponent() {
         (hasil_com === "Gunting" && pilihan_player === "Batu") ||
         (hasil_com === "Kertas" && pilihan_player === "Gunting")
       ) {
-        // return player win
-        hasil_suit = "Player 1 Win";
+        if (playerScore === 3 || compScore === 3) {
+          alert('The Game Has Reached The Maximum Score, Please Reset The Game!');
+          hasil_suit = 'GAME END!';
+        } else {
+          // > Update Player Score
+          setPlayerScore(playerScore + 1);
+
+          // > Update total_score in db
+          const updateScore = async () => {
+            const usersRef = ref(database, "users");
+            const snapshot = await get(usersRef);
+
+            const users = [];
+            snapshot.forEach((childSnapshot) => {
+              const childData = childSnapshot.val();
+              users.push({
+                ids: childSnapshot.key,
+                ...childData,
+              });
+            });
+
+            // > Cek apakah username dan email sudah digunakan
+            const checkData = users.find((data) => data.id === user.uid);
+            console.info(checkData);
+
+            if (checkData) {
+              const userRef = ref(database, `users/${checkData.ids}`);
+              await update(userRef, { total_score: checkData.total_score + 10 });
+              console.info("Score updated successfully");
+            }
+          };
+
+          // => Jalankan method update point di db
+          updateScore();
+
+          // return player win
+          hasil_suit = "Player 1 Win";
+        }
       } else if (hasil_com === pilihan_player) {
-        // draw
-        hasil_suit = "Draw";
+        if (playerScore === 3 || compScore === 3) {
+          alert('The Game Has Reached The Maximum Score, Please Reset The Game!');
+          hasil_suit = 'GAME END!';
+        } else {
+          // > Update state score user
+          setPlayerScore(playerScore + 0);
+          setCompScore(compScore + 0);
+
+          // draw
+          hasil_suit = "Draw";
+        }
       } else {
-        // return com win
-        hasil_suit = "Com Win";
+        if (playerScore === 3 || compScore === 3) {
+          alert('The Game Has Reached The Maximum Score, Please Reset The Game!');
+          hasil_suit = 'GAME END!';
+        } else {
+          // > Update state score computer
+          setCompScore(compScore + 1);
+
+          // return com win
+          hasil_suit = "Com Win";
+        }
       }
 
       console.log(hasil_suit);
+
       return hasil_suit;
     }
   }
@@ -130,6 +211,10 @@ function GameSuitComponent() {
     resultLabel_final.innerText = "VS";
 
     resultLabel_final.classList.remove("lbl-hasil-suit");
+
+    // > Reset Score Player dan Computer
+    setPlayerScore(0);
+    setCompScore(0);
 
     enableButton();
   };
@@ -220,7 +305,7 @@ function GameSuitComponent() {
                   fontWeight: "bold",
                 }}
               >
-                PLAYER 1
+                PLAYER 1 (Score: { playerScore })
               </h4>
             </div>
             <div className="col-2"></div>
@@ -234,7 +319,7 @@ function GameSuitComponent() {
                   fontWeight: "bold",
                 }}
               >
-                COM
+                COM (Score: { compScore })
               </h4>
             </div>
           </div>

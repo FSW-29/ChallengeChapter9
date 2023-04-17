@@ -11,7 +11,6 @@ import firebase from "../../services/firebase";
 import NavbarLandingComponent from "../../components/NavbarLanding";
 
 const LoginPage = (props) => {
-  let [username, setUsername] = useState("");
   const [formLogin, setFormLogin] = useState({
     email: "",
     password: "",
