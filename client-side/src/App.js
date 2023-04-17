@@ -40,7 +40,7 @@ function App() {
 
   const fetchDataUser = async () => {
     try {
-      const databaseFirebase = await get(child(ref(database), "users"));
+      // const databaseFirebase = await get(child(ref(database), "users"));
 
       // let cekData = Object.values(databaseFirebase.val());
       // let tokenCurrentUser = localStorage.getItem("token");

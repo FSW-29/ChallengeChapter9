@@ -84,8 +84,10 @@ function GameSuitComponent() {
         (hasil_com === "Kertas" && pilihan_player === "Gunting")
       ) {
         if (playerScore === 3 || compScore === 3) {
-          alert('The Game Has Reached The Maximum Score, Please Reset The Game!');
-          hasil_suit = 'GAME END!';
+          alert(
+            "The Game Has Reached The Maximum Score, Please Reset The Game!"
+          );
+          hasil_suit = "GAME END!";
         } else {
           // > Update Player Score
           setPlayerScore(playerScore + 1);
@@ -110,7 +112,9 @@ function GameSuitComponent() {
 
             if (checkData) {
               const userRef = ref(database, `users/${checkData.ids}`);
-              await update(userRef, { total_score: checkData.total_score + 10 });
+              await update(userRef, {
+                total_score: checkData.total_score + 10,
+              });
               console.info("Score updated successfully");
             }
           };
@@ -123,8 +127,10 @@ function GameSuitComponent() {
         }
       } else if (hasil_com === pilihan_player) {
         if (playerScore === 3 || compScore === 3) {
-          alert('The Game Has Reached The Maximum Score, Please Reset The Game!');
-          hasil_suit = 'GAME END!';
+          alert(
+            "The Game Has Reached The Maximum Score, Please Reset The Game!"
+          );
+          hasil_suit = "GAME END!";
         } else {
           // > Update state score user
           setPlayerScore(playerScore + 0);
@@ -135,8 +141,10 @@ function GameSuitComponent() {
         }
       } else {
         if (playerScore === 3 || compScore === 3) {
-          alert('The Game Has Reached The Maximum Score, Please Reset The Game!');
-          hasil_suit = 'GAME END!';
+          alert(
+            "The Game Has Reached The Maximum Score, Please Reset The Game!"
+          );
+          hasil_suit = "GAME END!";
         } else {
           // > Update state score computer
           setCompScore(compScore + 1);
@@ -179,7 +187,7 @@ function GameSuitComponent() {
 
     console.log(refResult_label, "==> isi refResultLabel");
 
-    alert(refResult_label.innerText);
+    // alert(refResult_label.innerText);
 
     const resultLabel_final = refResult_label.current;
     resultLabel_final.innerText = hasil_suit;
@@ -215,6 +223,35 @@ function GameSuitComponent() {
     // > Reset Score Player dan Computer
     setPlayerScore(0);
     setCompScore(0);
+
+    enableButton();
+  };
+
+  const conClicked = (e) => {
+    e.preventDefault();
+
+    const result = refResult_label.current;
+
+    let rockBtnPlayer = refRockPlayer.current;
+    let paperBtnPlayer = refPaperPlayer.current;
+    let scissorBtnPlayer = refScissorPlayer.current;
+
+    let rock_com = refRockCom.current;
+    let paper_com = refPaperCom.current;
+    let scissor_com = refScissorCom.current;
+
+    rockBtnPlayer.classList.remove("btn-choose-suit");
+    paperBtnPlayer.classList.remove("btn-choose-suit");
+    scissorBtnPlayer.classList.remove("btn-choose-suit");
+
+    rock_com.classList.remove("com-choose-suit");
+    paper_com.classList.remove("com-choose-suit");
+    scissor_com.classList.remove("com-choose-suit");
+
+    const resultLabel_final = refResult_label.current;
+    resultLabel_final.innerText = "VS";
+
+    resultLabel_final.classList.remove("lbl-hasil-suit");
 
     enableButton();
   };
@@ -267,6 +304,34 @@ function GameSuitComponent() {
     showResultLabel();
   };
 
+  let button;
+
+  if (playerScore === 3 || compScore === 3) {
+    button = (
+      <>
+        <button id="reset-btn" className="btn-suit" onClick={resetClicked}>
+          <img
+            src="../assets/refresh.png"
+            alt="refresh"
+            style={{ width: "50px", height: "50px" }}
+          />
+        </button>
+      </>
+    );
+  } else {
+    button = (
+      <>
+        <button
+          id="reset-btn"
+          className="btn-suit btn btn-secondary"
+          onClick={conClicked}
+        >
+          CONTINUE
+        </button>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="body-container">
@@ -305,7 +370,7 @@ function GameSuitComponent() {
                   fontWeight: "bold",
                 }}
               >
-                PLAYER 1 (Score: { playerScore })
+                PLAYER 1 (Score: {playerScore})
               </h4>
             </div>
             <div className="col-2"></div>
@@ -319,7 +384,7 @@ function GameSuitComponent() {
                   fontWeight: "bold",
                 }}
               >
-                COM (Score: { compScore })
+                COM (Score: {compScore})
               </h4>
             </div>
           </div>
@@ -454,13 +519,14 @@ function GameSuitComponent() {
         </div>
 
         <div style={{ width: "100%", textAlign: "center" }}>
-          <button id="reset-btn" className="btn-suit" onClick={resetClicked}>
+          {button}
+          {/* <button id="reset-btn" className="btn-suit" onClick={resetClicked}>
             <img
               src="../assets/refresh.png"
               alt="refresh"
               style={{ width: "50px", height: "50px" }}
             />
-          </button>
+          </button> */}
         </div>
       </div>
     </>
